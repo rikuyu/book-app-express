@@ -6,4 +6,11 @@ interface BookRequest extends Request {
     };
 }
 
-export {BookRequest};
+interface UserRequest extends Request {
+    body: {
+        name: string
+        email: string
+    };
+}
+
+export {BookRequest, UserRequest};

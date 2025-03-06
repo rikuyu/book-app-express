@@ -2,6 +2,7 @@ import express from "express";
 import {Request, Response} from "express";
 import {connectToDatabase} from "./infra/database/db";
 import {bookRouter} from "./presentation/routes/BookRouter";
+import {userRouter} from "./presentation/routes/UserRouter";
 
 const app = express();
 const port = 8080;
@@ -9,6 +10,7 @@ const port = 8080;
 app.use(express.json());
 
 app.use("/books", bookRouter);
+app.use("/users", userRouter);
 
 async function start() {
     try {

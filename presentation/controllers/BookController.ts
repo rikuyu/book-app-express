@@ -1,6 +1,6 @@
-import { NextFunction, Request, Response } from "express";
+import {NextFunction, Request, Response} from "express";
 import BookService from "../../domain/service/BookService";
-import { BookRequest } from "../types/Request";
+import {BookRequest} from "../types/Request";
 
 const getBooks = async (_req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
@@ -46,4 +46,4 @@ const deleteBook = async (req: Request<{ id: string }>, res: Response, next: Nex
     }
 };
 
-export { getBooks, getBookById, createBook, deleteBook };
+export {getBooks, getBookById, createBook, deleteBook};
