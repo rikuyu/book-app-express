@@ -1,13 +1,14 @@
 import express from "express";
 import {Request, Response} from "express";
 import {connectToDatabase} from "./infra/database/db";
+import {bookRouter} from "./presentation/routes/BookRouter";
 
 const app = express();
 const port = 8080;
 
-app.get("/ping", (_: Request, res: Response) => {
-    res.send("ok\n");
-});
+app.use(express.json());
+
+app.use("/books", bookRouter);
 
 async function start() {
     try {
@@ -19,3 +20,7 @@ async function start() {
 }
 
 start().catch(console.error);
+
+app.get("/ping", (_: Request, res: Response) => {
+    res.send("ok\n");
+});
