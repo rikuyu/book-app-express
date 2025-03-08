@@ -10,7 +10,6 @@ const getBorrowRecordByUser = async (userId: string) => await Book.find({user_id
 
 const borrowBook = async (
     borrowRecord: { user_id: string; book_id: string },
-    next: Function,
 ) => {
     const session = await mongoose.startSession();
     session.startTransaction();
@@ -31,7 +30,7 @@ const borrowBook = async (
         })
         .then(async (updatedBook) => {
             if (!updatedBook) {
-                return next(new Error("No book found with the given ID."));
+                return new Error("No book found with the given ID.");
             }
 
             await session.commitTransaction();
@@ -40,8 +39,7 @@ const borrowBook = async (
         .catch(async (err) => {
             await session.abortTransaction();
             await session.endSession();
-
-            next(err);
+            throw err;
         });
 };
 
@@ -85,4 +83,12 @@ const returnBook = async (
             });
             throw err;
         });
+};
+
+export default {
+    getBorrowRecords,
+    getBorrowRecordByBook,
+    getBorrowRecordByUser,
+    borrowBook,
+    returnBook,
 };
