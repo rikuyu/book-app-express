@@ -8,7 +8,7 @@ const getAllBorrowRecords = async (
     next: NextFunction,
 ): Promise<void> => {
     try {
-        const allBorrowRecords = BorrowRecordService.getBorrowRecords();
+        const allBorrowRecords = await BorrowRecordService.getBorrowRecords();
         res.status(200).json(allBorrowRecords);
     } catch (e) {
         next(e);

@@ -1,5 +1,5 @@
 import BorrowRecord, {IBorrowRecord} from "../model/BorrowRecord";
-import Book from "../model/Book";
+import Book, {IBook} from "../model/Book";
 import mongoose from "mongoose";
 
 const getBorrowRecords = async (): Promise<IBorrowRecord[]> => {
@@ -24,33 +24,42 @@ const borrowBook = async (
     const session = await mongoose.startSession();
     session.startTransaction();
 
-    BorrowRecord.create(
-        [{
-            user_id: userId,
-            book_id: bookId,
-        }],
-        {session},
-    )
-        .then(async () => {
+    return Book.find({_id: bookId})
+        .then((books: IBook[]) => {
+            if (books.length == 0 || books.length > 1) {
+                throw new Error("No book found error");
+            }
+            if (books[0].status != "available") {
+                throw new Error("No available book error");
+            }
+        })
+        .then(() => {
+            BorrowRecord.create(
+                [{
+                    user_id: userId,
+                    book_id: bookId,
+                }],
+                {session},
+            );
+        })
+        .then(() => {
             return Book.findByIdAndUpdate(
                 bookId,
                 {status: "borrowed"},
                 {new: true, session},
             );
         })
-        .then(async (updatedBook) => {
-            if (!updatedBook) {
+        .then(async (b: IBook) => {
+            if (!b) {
                 throw new Error("No book found with the given ID.");
             }
-
             await session.commitTransaction();
-            await session.endSession();
         })
         .catch(async (err) => {
             await session.abortTransaction();
-            await session.endSession();
             throw err;
-        });
+        })
+        .finally(async () => await session.endSession());
 };
 
 const returnBook = async (
@@ -60,39 +69,47 @@ const returnBook = async (
     const session = await mongoose.startSession();
     session.startTransaction();
 
-    BorrowRecord.findOneAndUpdate(
-        {
-            _id: borrowRecordId,
-            book_id: bookId,
-            returned_date: {$exists: false},
-        },
-        {returned_date: new Date()},
-        {new: true, session},
-    )
-        .then((borrowRecord) => {
-            if (!borrowRecord) {
-                throw new Error("No matching borrow record found or the book is already returned.");
+    return Book.find({_id: bookId})
+        .then((books: IBook[]) => {
+            if (books.length == 0 || books.length > 1) {
+                throw new Error("No book found error");
             }
-
+            if (books[0].status != "borrowed") {
+                throw new Error("No borrowed book error");
+            }
+        })
+        .then(() => {
+            return BorrowRecord.findOneAndUpdate(
+                {
+                    _id: borrowRecordId,
+                    book_id: bookId,
+                    returned_date: {$exists: false},
+                },
+                {returned_date: new Date()},
+                {new: true, session},
+            );
+        })
+        .then((b) => {
+            if (!b) {
+                throw new Error("No matching borrow record found");
+            }
             return Book.findByIdAndUpdate(
                 bookId,
                 {status: "available"},
                 {new: true, session},
             );
         })
-        .then(async (updatedBook) => {
-            if (!updatedBook) {
-                throw new Error("No book found with the given ID.");
+        .then(async (b) => {
+            if (!b) {
+                throw new Error("No book found with the given id");
             }
             await session.commitTransaction();
-            await session.endSession();
         })
         .catch(async (err) => {
-            await session.abortTransaction().then(() => {
-                session.endSession();
-            });
+            await session.abortTransaction();
             throw err;
-        });
+        })
+        .finally(async () => await session.endSession());
 };
 
 export default {
