@@ -1,6 +1,13 @@
 import mongoose, {Schema} from "mongoose";
 
-const borrowRecordSchema = new Schema({
+export interface IBorrowRecord {
+    user_id: mongoose.Types.ObjectId;
+    book_id: mongoose.Types.ObjectId;
+    borrowed_date: Date;
+    returned_date: Date;
+}
+
+const borrowRecordSchema = new Schema<IBorrowRecord>({
     user_id: {
         type: Schema.Types.ObjectId, ref: "User", required: true,
     },
@@ -15,4 +22,4 @@ const borrowRecordSchema = new Schema({
     },
 });
 
-export default mongoose.model("BorrowRecord", borrowRecordSchema);
+export default mongoose.model<IBorrowRecord>("BorrowRecord", borrowRecordSchema);
