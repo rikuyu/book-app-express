@@ -1,11 +1,11 @@
-import User from "../model/User";
+import User, {IUser} from "../model/User";
 
-const getUsers = () => User.find({});
+const getUsers = (): Promise<IUser[]> => User.find({});
 
-const getUserById = async (id: string) => await User.findById(id).exec();
+const getUserById = async (id: string): Promise<IUser> => await User.findById(id).exec();
 
-const createUser = async (user: { name: string, email: string }) => await User.create(user);
+const createUser = async (user: { name: string, email: string }): Promise<IUser> => await User.create(user);
 
-const deleteUser = async (id: string) => await User.findOneAndDelete({_id: id}).exec();
+const deleteUser = async (id: string): Promise<IUser> => await User.findOneAndDelete({_id: id}).exec();
 
 export default {getUsers, getUserById, createUser, deleteUser};
