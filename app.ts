@@ -3,6 +3,7 @@ import {Request, Response} from "express";
 import {connectToDatabase} from "./infra/database/db";
 import {bookRouter} from "./presentation/routes/BookRouter";
 import {userRouter} from "./presentation/routes/UserRouter";
+import {borrowRecordRouter} from "./presentation/routes/BorrowRecordRouter";
 
 const app = express();
 const port = 8080;
@@ -11,11 +12,12 @@ app.use(express.json());
 
 app.use("/books", bookRouter);
 app.use("/users", userRouter);
+app.use("/borrow_records", borrowRecordRouter);
 
 async function start() {
     try {
         await connectToDatabase();
-        app.listen(port, () => console.log(`✅ Server listening on port: 🚀${port}`));
+        app.listen(port, () => console.log(`✅  Server listening on port: 🚀 ${port}`));
     } catch (err) {
         console.log(`❌ error: ${err}`);
     }

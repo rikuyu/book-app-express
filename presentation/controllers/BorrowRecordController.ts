@@ -1,5 +1,6 @@
 import {Response, Request, NextFunction} from "express";
 import BorrowRecordService from "../../domain/service/BorrowRecordService";
+import {BorrowRecordRequest} from "../types/Request";
 
 const getAllBorrowRecords = async (
     _req: Request,
@@ -41,28 +42,36 @@ const getBorrowRecordsByUser = async (
 };
 
 const borrowBook = async (
-    req: Request<{ userId: string, bookId: string }>,
+    req: BorrowRecordRequest,
     res: Response,
     next: NextFunction,
 ): Promise<void> => {
     try {
-        await BorrowRecordService.borrowBook(req.body);
-        res.status(204);
+        await BorrowRecordService.borrowBook(req.body.userId, req.body.bookId);
+        res.status(204).send();
     } catch (e) {
         next(e);
     }
 };
 
 const returnBook = async (
-    req: Request<{ userId: string, bookId: string }>,
+    req: Request<{ borrowRecordId: string, bookId: string }>,
     res: Response,
     next: NextFunction,
 ): Promise<void> => {
     try {
-        const {userId, bookId} = req.params;
-        await BorrowRecordService.returnBook(userId, bookId);
-        res.status(204);
+        const {borrowRecordId, bookId} = req.params;
+        await BorrowRecordService.returnBook(borrowRecordId, bookId);
+        res.status(204).send();
     } catch (e) {
         next(e);
     }
+};
+
+export {
+    getAllBorrowRecords,
+    getBorrowRecordsByBook,
+    getBorrowRecordsByUser,
+    borrowBook,
+    returnBook,
 };

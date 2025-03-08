@@ -2,35 +2,45 @@ import BorrowRecord from "../model/BorrowRecord";
 import Book from "../model/Book";
 import mongoose from "mongoose";
 
-const getBorrowRecords = () => BorrowRecord.find({});
+const getBorrowRecords = async () => {
+    const borrowRecords = await BorrowRecord.find({});
+    return borrowRecords.map(record => record.toObject());
+};
 
-const getBorrowRecordByBook = async (bookId: string) => await Book.find({book_id: bookId});
+const getBorrowRecordByBook = async (bookId: string) => {
+    const borrowRecords = await BorrowRecord.find({book_id: bookId});
+    return borrowRecords.map(record => record.toObject());
+};
 
-const getBorrowRecordByUser = async (userId: string) => await Book.find({user_id: userId});
+const getBorrowRecordByUser = async (userId: string) => {
+    const borrowRecords = await BorrowRecord.find({user_id: userId});
+    return borrowRecords.map(record => record.toObject());
+};
 
 const borrowBook = async (
-    borrowRecord: { user_id: string; book_id: string },
+    userId: string,
+    bookId: string,
 ) => {
     const session = await mongoose.startSession();
     session.startTransaction();
 
     BorrowRecord.create(
         [{
-            user_id: borrowRecord.user_id,
-            book_id: borrowRecord.book_id,
+            user_id: userId,
+            book_id: bookId,
         }],
         {session},
     )
-        .then(async (newRecord) => {
+        .then(async () => {
             return Book.findByIdAndUpdate(
-                borrowRecord.book_id,
-                {status: "BORROWED"},
+                bookId,
+                {status: "borrowed"},
                 {new: true, session},
             );
         })
         .then(async (updatedBook) => {
             if (!updatedBook) {
-                return new Error("No book found with the given ID.");
+                throw new Error("No book found with the given ID.");
             }
 
             await session.commitTransaction();
@@ -44,7 +54,7 @@ const borrowBook = async (
 };
 
 const returnBook = async (
-    userId: string,
+    borrowRecordId: string,
     bookId: string,
 ) => {
     const session = await mongoose.startSession();
@@ -52,7 +62,7 @@ const returnBook = async (
 
     BorrowRecord.findOneAndUpdate(
         {
-            user_id: userId,
+            _id: borrowRecordId,
             book_id: bookId,
             returned_date: {$exists: false},
         },
@@ -66,7 +76,7 @@ const returnBook = async (
 
             return Book.findByIdAndUpdate(
                 bookId,
-                {status: "AVAILABLE"},
+                {status: "available"},
                 {new: true, session},
             );
         })

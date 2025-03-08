@@ -13,4 +13,11 @@ interface UserRequest extends Request {
     };
 }
 
-export {BookRequest, UserRequest};
+interface BorrowRecordRequest extends Request {
+    body: {
+        userId: string
+        bookId: string
+    };
+}
+
+export {BookRequest, UserRequest, BorrowRecordRequest};
