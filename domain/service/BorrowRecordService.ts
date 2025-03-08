@@ -4,18 +4,20 @@ import mongoose from "mongoose";
 
 const getBorrowRecords = async (): Promise<IBorrowRecord[]> => {
     const borrowRecords = await BorrowRecord.find({});
-    return borrowRecords.map(record => record.toObject());
+    return toObjectArray(borrowRecords);
 };
 
 const getBorrowRecordByBook = async (bookId: string): Promise<IBorrowRecord[]> => {
     const borrowRecords = await BorrowRecord.find({book_id: bookId});
-    return borrowRecords.map(record => record.toObject());
+    return toObjectArray(borrowRecords);
 };
 
 const getBorrowRecordByUser = async (userId: string): Promise<IBorrowRecord[]> => {
     const borrowRecords = await BorrowRecord.find({user_id: userId});
-    return borrowRecords.map(record => record.toObject());
+    return toObjectArray(borrowRecords);
 };
+
+const toObjectArray = (records: any[]) => records.map(record => record.toObject());
 
 const borrowBook = async (
     userId: string,
@@ -33,21 +35,9 @@ const borrowBook = async (
                 throw new Error("No available book error");
             }
         })
-        .then(() => {
-            BorrowRecord.create(
-                [{
-                    user_id: userId,
-                    book_id: bookId,
-                }],
-                {session},
-            );
-        })
-        .then(() => {
-            return Book.findByIdAndUpdate(
-                bookId,
-                {status: "borrowed"},
-                {new: true, session},
-            );
+        .then(async () => {
+            await BorrowRecord.create([{user_id: userId, book_id: bookId}], {session});
+            return Book.findByIdAndUpdate(bookId, {status: "borrowed"}, {new: true, session});
         })
         .then(async (b: IBook) => {
             if (!b) {
@@ -89,15 +79,11 @@ const returnBook = async (
                 {new: true, session},
             );
         })
-        .then((b) => {
+        .then(async (b) => {
             if (!b) {
                 throw new Error("No matching borrow record found");
             }
-            return Book.findByIdAndUpdate(
-                bookId,
-                {status: "available"},
-                {new: true, session},
-            );
+            return Book.findByIdAndUpdate(bookId, {status: "available"}, {new: true, session});
         })
         .then(async (b) => {
             if (!b) {
