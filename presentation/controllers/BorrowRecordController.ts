@@ -1,5 +1,5 @@
 import {Response, Request, NextFunction} from "express";
-import BorrowRecordService from "../../domain/service/BorrowRecordService";
+import {default as service} from "../../domain/service/BorrowRecordService";
 import {BorrowRecordRequest} from "../types/Request";
 
 const getAllBorrowRecords = async (
@@ -8,7 +8,7 @@ const getAllBorrowRecords = async (
     next: NextFunction,
 ): Promise<void> => {
     try {
-        const allBorrowRecords = await BorrowRecordService.getBorrowRecords();
+        const allBorrowRecords = await service.getBorrowRecords();
         res.status(200).json(allBorrowRecords);
     } catch (e) {
         next(e);
@@ -21,7 +21,7 @@ const getBorrowRecordsByBook = async (
     next: NextFunction,
 ): Promise<void> => {
     try {
-        const borrowRecords = await BorrowRecordService.getBorrowRecordByUser(req.params.userId);
+        const borrowRecords = await service.getBorrowRecordByUser(req.params.userId);
         res.status(200).json(borrowRecords);
     } catch (e) {
         next(e);
@@ -34,7 +34,7 @@ const getBorrowRecordsByUser = async (
     next: NextFunction,
 ): Promise<void> => {
     try {
-        const borrowRecords = await BorrowRecordService.getBorrowRecordByBook(req.params.bookId);
+        const borrowRecords = await service.getBorrowRecordByBook(req.params.bookId);
         res.status(200).json(borrowRecords);
     } catch (e) {
         next(e);
@@ -47,8 +47,8 @@ const borrowBook = async (
     next: NextFunction,
 ): Promise<void> => {
     try {
-        await BorrowRecordService.borrowBook(req.body.userId, req.body.bookId);
-        res.status(204).send();
+        await service.borrowBook(req.body.userId, req.body.bookId);
+        res.status(204).send("success");
     } catch (e) {
         next(e);
     }
@@ -61,8 +61,8 @@ const returnBook = async (
 ): Promise<void> => {
     try {
         const {borrowRecordId, bookId} = req.params;
-        await BorrowRecordService.returnBook(borrowRecordId, bookId);
-        res.status(204).send();
+        await service.returnBook(borrowRecordId, bookId);
+        res.status(204).send("success");
     } catch (e) {
         next(e);
     }
