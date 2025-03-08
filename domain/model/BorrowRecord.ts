@@ -8,7 +8,7 @@ const borrowRecordSchema = new Schema({
         type: Schema.Types.ObjectId, ref: "Book", required: true,
     },
     borrowed_date: {
-        type: Date, required: true,
+        type: Date, required: true, default: Date.now
     },
     returned_date: {
         type: Date,
