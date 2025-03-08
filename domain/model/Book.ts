@@ -1,6 +1,11 @@
 import mongoose, {Schema} from "mongoose";
 
-const bookSchema = new Schema({
+export interface IBook extends Document {
+    title: string;
+    status: "available" | "borrowed";
+}
+
+const bookSchema = new Schema<IBook>({
     title: {
         type: String,
         required: true,
@@ -11,4 +16,4 @@ const bookSchema = new Schema({
     },
 });
 
-export default mongoose.model("Book", bookSchema);
+export default mongoose.model<IBook>("Book", bookSchema);
