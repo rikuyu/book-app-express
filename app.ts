@@ -5,12 +5,12 @@ import {bookRouter} from "./presentation/routes/BookRouter";
 import {userRouter} from "./presentation/routes/UserRouter";
 import {borrowRecordRouter} from "./presentation/routes/BorrowRecordRouter";
 import errorHandler from "./presentation/middleware/errorHandler";
-import logger from "./presentation/middleware/logger";
+import requestLogger from "./presentation/middleware/requestLogger";
 
 const app = express();
 const port = 8080;
 
-app.use(logger);
+app.use(requestLogger);
 app.use(express.json());
 
 app.use("/books", bookRouter);
