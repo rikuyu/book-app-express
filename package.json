@@ -3,12 +3,14 @@
   "version": "1.0.0",
   "main": "app.ts",
   "scripts": {
-    "start": "ts-node app.ts"
+    "start": "ts-node app.ts",
+    "test": "vitest --ui "
   },
   "author": "",
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@vitest/ui": "^3.0.8",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "mongoose": "^8.12.1"
@@ -16,7 +18,10 @@
   "devDependencies": {
     "@types/express": "^5.0.0",
     "@types/node": "^22.13.9",
+    "@types/supertest": "^6.0.2",
+    "supertest": "^7.0.0",
     "ts-node": "^10.9.2",
-    "typescript": "^5.8.2"
+    "typescript": "^5.8.2",
+    "vitest": "^3.0.8"
   }
 }

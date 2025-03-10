@@ -1,13 +1,13 @@
 import express from "express";
 import {Request, Response} from "express";
 import {connectToDatabase} from "./infra/database/db";
-import {bookRouter} from "./presentation/routes/BookRouter";
-import {userRouter} from "./presentation/routes/UserRouter";
-import {borrowRecordRouter} from "./presentation/routes/BorrowRecordRouter";
+import {bookRouter} from "./presentation/routes/bookRouter";
+import {userRouter} from "./presentation/routes/userRouter";
+import {borrowRecordRouter} from "./presentation/routes/borrowRecordRouter";
 import errorHandler from "./presentation/middleware/errorHandler";
 import requestLogger from "./presentation/middleware/requestLogger";
 
-const app = express();
+export const app = express();
 const port = 8080;
 
 app.use(requestLogger);
