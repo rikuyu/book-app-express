@@ -1,25 +1,25 @@
-import BorrowRecord, {IBorrowRecord} from "../model/BorrowRecord";
-import Book, {IBook} from "../model/Book";
+import BorrowRecord, {IBorrowRecord} from "../model/borrowRecord";
+import Book, {IBook} from "../model/book";
 import mongoose from "mongoose";
 
-const getBorrowRecords = async (): Promise<IBorrowRecord[]> => {
+export const getBorrowRecords = async (): Promise<IBorrowRecord[]> => {
     const borrowRecords = await BorrowRecord.find({});
     return toObjectArray(borrowRecords);
 };
 
-const getBorrowRecordByBook = async (bookId: string): Promise<IBorrowRecord[]> => {
+export const getBorrowRecordByBook = async (bookId: string): Promise<IBorrowRecord[]> => {
     const borrowRecords = await BorrowRecord.find({book_id: bookId});
     return toObjectArray(borrowRecords);
 };
 
-const getBorrowRecordByUser = async (userId: string): Promise<IBorrowRecord[]> => {
+export const getBorrowRecordByUser = async (userId: string): Promise<IBorrowRecord[]> => {
     const borrowRecords = await BorrowRecord.find({user_id: userId});
     return toObjectArray(borrowRecords);
 };
 
 const toObjectArray = (records: any[]) => records.map(record => record.toObject());
 
-const borrowBook = async (
+export const borrowBook = async (
     userId: string,
     bookId: string,
 ): Promise<void> => {
@@ -52,7 +52,7 @@ const borrowBook = async (
         .finally(async () => await session.endSession());
 };
 
-const returnBook = async (
+export const returnBook = async (
     borrowRecordId: string,
     bookId: string,
 ): Promise<void> => {
@@ -96,12 +96,4 @@ const returnBook = async (
             throw err;
         })
         .finally(async () => await session.endSession());
-};
-
-export default {
-    getBorrowRecords,
-    getBorrowRecordByBook,
-    getBorrowRecordByUser,
-    borrowBook,
-    returnBook,
 };

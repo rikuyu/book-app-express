@@ -1,4 +1,4 @@
-import User, {IUser} from "../model/User";
+import User, {IUser} from "../model/user";
 
 const getUsers = (): Promise<IUser[]> => User.find({});
 

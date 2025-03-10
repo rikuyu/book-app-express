@@ -5,7 +5,7 @@ import {
     getBorrowRecordsByUser,
     borrowBook,
     returnBook,
-} from "../controllers/BorrowRecordController";
+} from "../controllers/borrowRecordController";
 
 export const borrowRecordRouter = express.Router();
 

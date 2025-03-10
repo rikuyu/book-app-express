@@ -1,4 +1,4 @@
-import Book, {IBook} from "../model/Book";
+import Book, {IBook} from "../model/book";
 
 const getBooks = (): Promise<IBook[]> => Book.find({});
 
@@ -8,4 +8,9 @@ const createBook = async (book: { title: string }): Promise<IBook> => await Book
 
 const deleteBook = async (id: string): Promise<IBook> => await Book.findOneAndDelete({_id: id}).exec();
 
-export default {getBooks, getBookById, createBook, deleteBook};
+export default {
+    getBooks,
+    getBookById,
+    createBook,
+    deleteBook,
+};

@@ -1,6 +1,6 @@
 import {NextFunction, Request, Response} from "express";
-import {default as service} from "../../domain/service/UserService";
-import {UserRequest} from "../types/Request";
+import {default as service} from "../../domain/service/userService";
+import {UserRequest} from "../types/request";
 
 const getUsers = async (_req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {

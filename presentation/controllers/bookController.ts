@@ -1,6 +1,6 @@
 import {NextFunction, Request, Response} from "express";
-import {default as service} from "../../domain/service/BookService";
-import {BookRequest} from "../types/Request";
+import {default as service} from "../../domain/service/bookService";
+import {BookRequest} from "../types/request";
 
 const getBooks = async (_req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {

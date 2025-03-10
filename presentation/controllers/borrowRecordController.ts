@@ -1,6 +1,6 @@
 import {Response, Request, NextFunction} from "express";
-import {default as service} from "../../domain/service/BorrowRecordService";
-import {BorrowRecordRequest} from "../types/Request";
+import * as service from "../../domain/service/borrowRecordService";
+import {BorrowRecordRequest} from "../types/request";
 
 const getAllBorrowRecords = async (
     _req: Request,
