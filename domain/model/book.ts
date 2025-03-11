@@ -1,6 +1,7 @@
-import mongoose, {Schema} from "mongoose";
+import mongoose, {Schema, Types} from "mongoose";
 
 export interface IBook extends Document {
+    _id: Types.ObjectId,
     title: string;
     status: "available" | "borrowed";
 }
