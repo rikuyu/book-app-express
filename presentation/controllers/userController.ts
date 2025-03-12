@@ -14,11 +14,6 @@ const getUsers = async (_req: Request, res: Response, next: NextFunction): Promi
 const getUserById = async (req: Request<{ id: string }>, res: Response, next: NextFunction): Promise<void> => {
     try {
         const user = await service.getUserById(req.params.id);
-
-        if (user == null) {
-            res.status(404).json(`Not Found _id:${req.params.id}`);
-        }
-
         res.status(200).json(user);
     } catch (err) {
         next(err);

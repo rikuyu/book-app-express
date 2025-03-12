@@ -14,10 +14,6 @@ const getBooks = async (_req: Request, res: Response, next: NextFunction): Promi
 const getBookById = async (req: Request<{ id: string }>, res: Response, next: NextFunction): Promise<void> => {
     try {
         const book = await service.getBookById(req.params.id);
-        if (book == null) {
-            res.status(404).json(`Not Found _id:${req.params.id}`);
-            return;
-        }
         res.status(200).json(book);
     } catch (err) {
         next(err);
@@ -36,10 +32,6 @@ const createBook = async (req: BookRequest, res: Response, next: NextFunction): 
 const deleteBook = async (req: Request<{ id: string }>, res: Response, next: NextFunction): Promise<void> => {
     try {
         const book = await service.deleteBook(req.params.id);
-        if (book === null) {
-            res.status(404).json(`Not Found _id:${req.params.id} is not exist`);
-            return;
-        }
         res.status(200).json(book);
     } catch (err) {
         next(err);

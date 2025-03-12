@@ -1,6 +1,7 @@
 import BorrowRecord, {IBorrowRecord} from "../model/borrowRecord";
 import Book, {IBook} from "../model/book";
 import mongoose from "mongoose";
+import {NotFoundError} from "../../shared/error/notFoundError";
 
 export const getBorrowRecords = async (): Promise<IBorrowRecord[]> => {
     const borrowRecords = await BorrowRecord.find({});
@@ -29,10 +30,10 @@ export const borrowBook = async (
     return Book.find({_id: bookId})
         .then((books: IBook[]) => {
             if (books.length == 0 || books.length > 1) {
-                throw new Error("No book found error");
+                throw new NotFoundError("No book found error", 404);
             }
             if (books[0].status != "available") {
-                throw new Error("No available book error");
+                throw new NotFoundError("No available book error", 404);
             }
         })
         .then(async () => {
@@ -41,7 +42,7 @@ export const borrowBook = async (
         })
         .then(async (b: IBook) => {
             if (!b) {
-                throw new Error("No book found with the given ID.");
+                throw new NotFoundError("No book found with the given id", 404);
             }
             await session.commitTransaction();
         })
@@ -62,10 +63,10 @@ export const returnBook = async (
     return Book.find({_id: bookId})
         .then((books: IBook[]) => {
             if (books.length == 0 || books.length > 1) {
-                throw new Error("No book found error");
+                throw new NotFoundError("No book found error", 404);
             }
             if (books[0].status != "borrowed") {
-                throw new Error("No borrowed book error");
+                throw new NotFoundError("No borrowed book error", 404);
             }
         })
         .then(() => {
@@ -81,13 +82,13 @@ export const returnBook = async (
         })
         .then(async (b) => {
             if (!b) {
-                throw new Error("No matching borrow record found");
+                throw new NotFoundError("No matching borrow record found", 404);
             }
             return Book.findByIdAndUpdate(bookId, {status: "available"}, {new: true, session});
         })
         .then(async (b) => {
             if (!b) {
-                throw new Error("No book found with the given id");
+                throw new NotFoundError("No book found with the given id", 404);
             }
             await session.commitTransaction();
         })
