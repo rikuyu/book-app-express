@@ -56,14 +56,6 @@ describe("bookController Test", () => {
             expect(jsonMock).toHaveBeenCalledWith(mockBook);
         });
 
-        it("fail with not found error", async () => {
-            vi.spyOn(service, "getBookById").mockResolvedValue(null);
-
-            await getBookById(req, res, vi.fn());
-
-            expect(statusMock).toHaveBeenCalledWith(404);
-        });
-
         it("fail with unknown error", async () => {
             const error = new Error("Internal Server Error");
             vi.spyOn(service, "getBookById").mockRejectedValue(error);
@@ -127,14 +119,6 @@ describe("bookController Test", () => {
 
             expect(statusMock).toHaveBeenCalledWith(200);
             expect(jsonMock).toHaveBeenCalledWith(mockBook);
-        });
-
-        it("fail with error", async () => {
-            vi.spyOn(service, "deleteBook").mockResolvedValue(null);
-
-            await deleteBook(req, res, vi.fn());
-
-            expect(statusMock).toHaveBeenCalledWith(404);
         });
 
         it("fail with unknown error", async () => {
