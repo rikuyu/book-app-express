@@ -1,41 +1,35 @@
-import {NextFunction, Request, Response} from "express";
+import {Request, Response} from "express";
 import * as service from "../../domain/service/bookService";
 import {BookRequest} from "../types/request";
+import {asyncHandler} from "../../shared/error/asyncHandler";
 
-const getBooks = async (_req: Request, res: Response, next: NextFunction): Promise<void> => {
-    try {
-        const books = await service.getBooks();
-        res.status(200).json(books);
-    } catch (err) {
-        next(err);
-    }
-};
+const getBooks = asyncHandler(async (_req: Request, res: Response): Promise<void> => {
+    const books = await service.getBooks();
+    res.status(200).json(books);
+});
 
-const getBookById = async (req: Request<{ id: string }>, res: Response, next: NextFunction): Promise<void> => {
-    try {
-        const book = await service.getBookById(req.params.id);
-        res.status(200).json(book);
-    } catch (err) {
-        next(err);
-    }
-};
+const getBookById = asyncHandler(async (
+    req: Request<{ id: string }>,
+    res: Response,
+): Promise<void> => {
+    const book = await service.getBookById(req.params.id);
+    res.status(200).json(book);
+});
 
-const createBook = async (req: BookRequest, res: Response, next: NextFunction): Promise<void> => {
-    try {
-        const book = await service.createBook(req.body);
-        res.status(201).json(book);
-    } catch (err) {
-        next(err);
-    }
-};
+const createBook = asyncHandler(async (
+    req: BookRequest,
+    res: Response,
+): Promise<void> => {
+    const book = await service.createBook(req.body);
+    res.status(201).json(book);
+});
 
-const deleteBook = async (req: Request<{ id: string }>, res: Response, next: NextFunction): Promise<void> => {
-    try {
-        const book = await service.deleteBook(req.params.id);
-        res.status(200).json(book);
-    } catch (err) {
-        next(err);
-    }
-};
+const deleteBook = asyncHandler(async (
+    req: Request<{ id: string }>,
+    res: Response,
+): Promise<void> => {
+    const book = await service.deleteBook(req.params.id);
+    res.status(200).json(book);
+});
 
 export {getBooks, getBookById, createBook, deleteBook};
