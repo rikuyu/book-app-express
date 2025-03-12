@@ -22,4 +22,12 @@ const borrowRecordSchema = new Schema<IBorrowRecord>({
     },
 });
 
+borrowRecordSchema.post("save", () => {
+    console.log("📝 A new borrow record has been saved.");
+});
+
+borrowRecordSchema.post("findOneAndDelete", () => {
+    console.log("📝 the borrow record has been deleted.");
+});
+
 export default mongoose.model<IBorrowRecord>("BorrowRecord", borrowRecordSchema);

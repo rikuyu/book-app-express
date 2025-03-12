@@ -34,4 +34,12 @@ const userSchema = new Schema<IUser>({
     },
 });
 
+userSchema.post("save", () => {
+    console.log("🙂 A new user has been saved.");
+});
+
+userSchema.post("findOneAndDelete", () => {
+    console.log("🙂 the user has been deleted.");
+});
+
 export default mongoose.model<IUser>("User", userSchema);

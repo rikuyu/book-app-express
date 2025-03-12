@@ -17,4 +17,12 @@ const bookSchema = new Schema<IBook>({
     },
 });
 
+bookSchema.post("save", () => {
+    console.log("📕 A new book has been saved.");
+});
+
+bookSchema.post("findOneAndDelete", () => {
+    console.log("📕 the book has been deleted.");
+});
+
 export default mongoose.model<IBook>("Book", bookSchema);
