@@ -1,4 +1,5 @@
 import express from "express";
+import cors from "cors";
 import {Request, Response} from "express";
 import {connectToDatabase} from "./infra/database/db";
 import {bookRouter} from "./presentation/routes/bookRouter";
@@ -11,6 +12,10 @@ export const app = express();
 const port = 8080;
 
 app.use(requestLogger);
+app.use(cors({
+    origin: "http://localhost:5173",
+    credentials: true,
+}));
 app.use(express.json());
 
 app.use("/books", bookRouter);
