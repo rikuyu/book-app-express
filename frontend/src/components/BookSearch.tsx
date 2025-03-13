@@ -44,7 +44,7 @@ const BookSearch: React.FC = () => {
 
     return (
         <div className="min-h-screen bg-gray-100">
-            <header className="bg-green-600 text-white py-4 flex justify-between items-center px-5">
+            <header className="bg-blue-600 text-white py-4 flex justify-between items-center px-5">
                 <div className="flex items-center">
                     <FaSearch className="text-white w-6 h-6 mr-4"/>
                     <h1 className="text-2xl font-medium text-left">図書館の書籍検索</h1>
@@ -90,7 +90,7 @@ const BookSearch: React.FC = () => {
                     />
                     <button
                         onClick={handleSearch}
-                        className="mx-3 bg-green-500 text-white py-2 px-3 rounded-lg flex items-center whitespace-nowrap hover:bg-green-600 focus:outline-none"
+                        className="mx-3 bg-blue-500 text-white py-2 px-3 rounded-lg flex items-center whitespace-nowrap hover:bg-blue-600 focus:outline-none"
                     >
                         <IoMdSend className="text-white w-5 h-5 mr-2"/>
                         検索
@@ -101,20 +101,20 @@ const BookSearch: React.FC = () => {
                 <table className="table-auto border-collapse border border-gray-800 w-full">
                     <thead>
                     <tr className="bg-gray-200">
-                        <th className="border border-gray-300 px-2 py-3">ID</th>
+                        <th className="border border-gray-300 px-0 py-3">ID</th>
                         <th className="border border-gray-300 px-4 py-3">タイトル</th>
                         <th className="border border-gray-300 px-4 py-3">状態</th>
                     </tr>
                     </thead>
                     <tbody>
                     {books.map((book) => (
-                        <tr key={book.id}>
-                            <td className="border border-gray-300 px-2 py-2 text-center">{book.id}</td>
+                        <tr key={book._id}>
+                            <td className="border border-gray-300 px-0 py-2 text-center">{book._id}</td>
                             <td className="border border-gray-300 px-4 py-2 text-center">{book.title}</td>
                             <td className="border border-gray-300 px-4 py-2 text-center">
                               <span
-                                  className={`font-bold ${book.status === 'AVAILABLE' ? 'text-green-600' : 'text-red-600'}`}>
-                                {book.status === 'AVAILABLE' ? '利用可能' : '貸出中'}
+                                  className={`font-bold ${book.status === 'available' ? 'text-green-600' : 'text-red-600'}`}>
+                                {book.status === 'available' ? '利用可能' : '貸出中'}
                               </span>
                             </td>
                         </tr>

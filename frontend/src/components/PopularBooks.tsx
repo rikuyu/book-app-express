@@ -35,7 +35,7 @@ const PopularBooks: React.FC = () => {
 
     return (
         <div className="min-h-screen bg-gray-100 flex flex-col">
-            <header className="bg-green-600 text-white py-4 flex justify-between items-center px-5">
+            <header className="bg-blue-600 text-white py-4 flex justify-between items-center px-5">
                 <div className="flex items-center">
                     <FaCrown className="text-white w-7 h-7 mr-2"/>
                     <h1 className="text-2xl font-medium text-left">図書館の人気書籍</h1>
@@ -109,7 +109,7 @@ const PopularBooks: React.FC = () => {
                         {books[3] && (
                             <li className="border-b pb-4 border-black">
                                 <div className="flex items-center text-lg px-3">
-                                    <FaAward className="text-green-600 mr-4 w-8 h-8"/>
+                                    <FaAward className="text-blue-600 mr-4 w-8 h-8"/>
                                     <span className="text-2xl font-bold">
                                     <span className="mr-3">4位</span>
                                         {books[3].title}
@@ -120,7 +120,7 @@ const PopularBooks: React.FC = () => {
                         {books[4] && (
                             <li className="border-b pb-4 border-black">
                                 <div className="flex items-center text-lg px-3">
-                                    <FaAward className="text-green-600 mr-4 w-8 h-8"/>
+                                    <FaAward className="text-blue-600 mr-4 w-8 h-8"/>
                                     <span className="text-2xl font-bold">
                                     <span className="mr-3">5位</span>
                                         {books[4].title}

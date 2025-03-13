@@ -90,7 +90,7 @@ function MyPage() {
 
     return (
         <div className="min-h-screen bg-gray-100 flex flex-col">
-            <header className="bg-green-600 text-white py-4 flex justify-between items-center px-5">
+            <header className="bg-blue-600 text-white py-4 flex justify-between items-center px-5">
                 <div className="flex items-center relative">
                     <div className="flex items-center">
                         <MdAccountCircle className="text-white w-7 h-7 mr-2" />
@@ -170,7 +170,7 @@ function MyPage() {
                             )}
                         </div>
                         <label htmlFor="file-upload"
-                               className="mt-6 inline-block bg-green-600 text-white font-medium py-1.5 px-3 rounded-lg cursor-pointer hover:bg-green-700 mr-3">
+                               className="mt-6 inline-block bg-blue-600 text-white font-medium py-1.5 px-3 rounded-lg cursor-pointer hover:bg-blue-700 mr-3">
                             画像を選択
                         </label>
                         <input id="file-upload" type="file" onChange={selectImage} className="hidden"/>

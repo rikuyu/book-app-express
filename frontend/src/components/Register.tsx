@@ -45,24 +45,24 @@ function Register() {
                     placeholder="ユーザーネーム"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    className="w-80 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 ring-green-300"
+                    className="w-80 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 ring-blue-300"
                 />
                 <input
                     type="email"
                     placeholder="メールアドレス"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="w-80 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 ring-green-300"
+                    className="w-80 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 ring-blue-300"
                 />
                 <input
                     type="password"
                     placeholder="パスワード"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className="w-80 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 ring-green-300"
+                    className="w-80 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 ring-blue-300"
                 />
                 <button
-                    className="w-80 px-4 py-2 bg-green-600 text-white rounded-lg shadow-md hover:bg-green-500 transition"
+                    className="w-80 px-4 py-2 bg-blue-600 text-white rounded-lg shadow-md hover:bg-blue-500 transition"
                     onClick={handleRegister}
                 >
                     新規登録

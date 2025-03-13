@@ -39,7 +39,7 @@ const AddBook = () => {
 
     return (
         <div className="min-h-screen bg-gray-100">
-            <header className="bg-green-600 text-white py-4 flex justify-between items-center px-5">
+            <header className="bg-blue-600 text-white py-4 flex justify-between items-center px-5">
                 <div className="flex items-center">
                     <FaBookOpen className="text-white w-6 h-6 mr-2"/>
                     <h1 className="text-2xl font-medium">【管理者用】書籍の追加</h1>
@@ -77,11 +77,11 @@ const AddBook = () => {
                         placeholder="書籍タイトルを入力..."
                         value={title}
                         onChange={(e) => setTitle(e.target.value)}
-                        className="w-full px-4 py-2 mb-6 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-green-300"
+                        className="w-full px-4 py-2 mb-6 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-300"
                     />
                     <button
                         onClick={submitBook}
-                        className="w-full bg-green-600 text-white py-2 px-4 rounded-lg hover:bg-green-700 transition"
+                        className="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition"
                     >
                         書籍を追加
                     </button>

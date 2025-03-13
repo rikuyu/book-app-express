@@ -52,7 +52,7 @@ const BorrowRecordTable = () => {
 
     return (
         <div className="min-h-screen bg-gray-100">
-            <header className="bg-green-600 text-white py-4 flex justify-between items-center px-5">
+            <header className="bg-blue-600 text-white py-4 flex justify-between items-center px-5">
                 <div className="flex items-center">
                     <MdHistory className="text-white w-7 h-7 mr-2"/>
                     <h1 className="text-2xl font-medium">【管理者用】貸出記録一覧</h1>

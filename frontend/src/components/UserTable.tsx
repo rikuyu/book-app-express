@@ -39,7 +39,7 @@ const UserTable: React.FC = () => {
 
     return (
         <div className="min-h-screen bg-gray-100">
-            <header className="bg-green-600 text-white py-4 flex justify-between items-center px-5">
+            <header className="bg-blue-600 text-white py-4 flex justify-between items-center px-5">
                 <div className="flex items-center">
                     <MdGroup className="text-white w-8 h-8 mr-2"/>
                     <h1 className="text-2xl font-medium">【管理者用】すべてのユーザー</h1>
