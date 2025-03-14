@@ -9,7 +9,7 @@ import errorHandler from "./presentation/middleware/errorHandler";
 import requestLogger from "./presentation/middleware/requestLogger";
 
 export const app = express();
-const port = 8080;
+export const port = 8080;
 
 app.use(requestLogger);
 app.use(cors({
