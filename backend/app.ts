@@ -8,9 +8,12 @@ import {userRouter} from "./presentation/routes/userRouter";
 import {borrowRecordRouter} from "./presentation/routes/borrowRecordRouter";
 import errorHandler from "./presentation/middleware/errorHandler";
 import requestLogger from "./presentation/middleware/requestLogger";
+import dotenv from "dotenv";
 
 export const app = express();
 export const port = 8080;
+
+dotenv.config();
 
 app.use(requestLogger);
 app.use(cors({
