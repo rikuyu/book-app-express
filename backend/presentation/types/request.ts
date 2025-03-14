@@ -16,7 +16,7 @@ interface RegisterRequest extends Request {
 
 interface LoginRequest extends Request {
     body: {
-        name: string
+        email: string
         password: string
     };
 }

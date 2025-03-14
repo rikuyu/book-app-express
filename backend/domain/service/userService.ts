@@ -11,6 +11,14 @@ export const getUserById = async (id: string): Promise<IUser> => {
     return user;
 };
 
+export const getUserByEmail = async (email: string): Promise<IUser> => {
+    const user = await User.findOne({email}).exec();
+    if (user == null) {
+        throw new NotFoundError(`No user found with the given email: ${email}`);
+    }
+    return user;
+};
+
 export const deleteUser = async (id: string): Promise<IUser> => {
     const user = await User.findOneAndDelete({_id: id}).exec();
     if (user == null) {
