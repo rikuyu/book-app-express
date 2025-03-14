@@ -1,12 +1,16 @@
 import {asyncHandler} from "../../shared/error/asyncHandler";
-import {Request, Response, NextFunction} from "express";
+import {NextFunction, Request, Response} from "express";
 import {AuthRequest} from "../types/request";
 import * as service from "../../domain/service/authService";
 
 export const register = asyncHandler(async (req: AuthRequest, res: Response) => {
     const user = await service.register(req.body);
+
+    const token = user.getJsonWebToken();
+
     res.status(200).json({
         message: `${user.name} created successfully`,
+        token
     });
 });
 

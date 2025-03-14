@@ -1,11 +1,13 @@
 import mongoose, {Schema} from "mongoose";
 import bcrypt, {genSalt} from "bcryptjs";
+import jwt from "jsonwebtoken";
 
 export interface IUser extends Document {
     name: string;
     email: string;
     password: string;
     role: "admin" | "user";
+    getJsonWebToken(): string;
 }
 
 const userSchema = new Schema<IUser>({
@@ -41,9 +43,18 @@ userSchema.pre("save", async function () {
     this.password = await bcrypt.hash(this.password, salt);
 });
 
-userSchema.post("save", () => {
-    console.log("🙂 A new user has been saved.");
+userSchema.pre("save", async function () {
+    const salt = await genSalt(10);
+    this.password = await bcrypt.hash(this.password, salt);
 });
+
+userSchema.methods.getJsonWebToken = function (): string {
+    return jwt.sign(
+        {id: this._id},
+        process.env.JWT_SECRET_KEY,
+        {expiresIn: "1h"},
+    );
+};
 
 userSchema.post("findOneAndDelete", () => {
     console.log("🙂 the user has been deleted.");
