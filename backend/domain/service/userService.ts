@@ -6,7 +6,7 @@ export const getUsers = (): Promise<IUser[]> => User.find({});
 export const getUserById = async (id: string): Promise<IUser> => {
     const user = await User.findById(id).exec();
     if (user == null) {
-        throw new NotFoundError(`No user found with the given id: ${id}`, 404);
+        throw new NotFoundError(`No user found with the given id: ${id}`);
     }
     return user;
 };
@@ -14,7 +14,7 @@ export const getUserById = async (id: string): Promise<IUser> => {
 export const deleteUser = async (id: string): Promise<IUser> => {
     const user = await User.findOneAndDelete({_id: id}).exec();
     if (user == null) {
-        throw new NotFoundError(`No user found with the given id: ${id}`, 404);
+        throw new NotFoundError(`No user found with the given id: ${id}`);
     }
     return user;
 };

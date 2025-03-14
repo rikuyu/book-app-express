@@ -1,10 +1,8 @@
 export class NotFoundError extends Error {
-    constructor(
-        message: string,
-        public readonly statusCode: number,
-    ) {
+    public readonly statusCode: number = 400;
+
+    constructor(message: string) {
         super(message);
-        this.statusCode = statusCode;
         this.name = "NotFoundError";
     }
 }

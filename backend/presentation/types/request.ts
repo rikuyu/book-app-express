@@ -6,10 +6,17 @@ interface BookRequest extends Request {
     };
 }
 
-interface AuthRequest extends Request {
+interface RegisterRequest extends Request {
     body: {
         name: string
         email: string
+        password: string
+    };
+}
+
+interface LoginRequest extends Request {
+    body: {
+        name: string
         password: string
     };
 }
@@ -21,4 +28,4 @@ interface BorrowRecordRequest extends Request {
     };
 }
 
-export {BookRequest, AuthRequest, BorrowRecordRequest};
+export {BookRequest, RegisterRequest, LoginRequest, BorrowRecordRequest};
