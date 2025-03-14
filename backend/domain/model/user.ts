@@ -1,4 +1,5 @@
 import mongoose, {Schema} from "mongoose";
+import bcrypt, {genSalt} from "bcryptjs";
 
 export interface IUser extends Document {
     name: string;
@@ -27,12 +28,17 @@ const userSchema = new Schema<IUser>({
     password: {
         type: String,
         minlength: 3,
-        required: true, default: "pw",
+        required: true,
     },
     role: {
         type: String,
         enum: ["admin", "user"], default: "user",
     },
+});
+
+userSchema.pre("save", async function () {
+    const salt = await genSalt(10);
+    this.password = await bcrypt.hash(this.password, salt);
 });
 
 userSchema.post("save", () => {
