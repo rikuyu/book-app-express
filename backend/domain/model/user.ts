@@ -26,6 +26,7 @@ const userSchema = new Schema<IUser>({
     },
     password: {
         type: String,
+        minlength: 3,
         required: true, default: "pw",
     },
     role: {

@@ -11,8 +11,6 @@ export const getUserById = async (id: string): Promise<IUser> => {
     return user;
 };
 
-export const createUser = async (user: { name: string, email: string }): Promise<IUser> => await User.create(user);
-
 export const deleteUser = async (id: string): Promise<IUser> => {
     const user = await User.findOneAndDelete({_id: id}).exec();
     if (user == null) {

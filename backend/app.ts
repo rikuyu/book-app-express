@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import {Request, Response} from "express";
 import {connectToDatabase} from "./infra/database/db";
+import {authRouter} from "./presentation/routes/authRouter";
 import {bookRouter} from "./presentation/routes/bookRouter";
 import {userRouter} from "./presentation/routes/userRouter";
 import {borrowRecordRouter} from "./presentation/routes/borrowRecordRouter";
@@ -18,6 +19,7 @@ app.use(cors({
 }));
 app.use(express.json());
 
+app.use("/auth", authRouter);
 app.use("/books", bookRouter);
 app.use("/users", userRouter);
 app.use("/borrow_records", borrowRecordRouter);
