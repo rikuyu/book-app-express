@@ -8,7 +8,7 @@ const errorHandler = (
     _next: NextFunction,
 ): void => {
     res.status(err.statusCode ?? 500).json({
-        name: err.name,
+        error: err.name,
         message: err.message ?? "Internal Server Error",
     });
 };
