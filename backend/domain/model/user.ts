@@ -7,7 +7,10 @@ export interface IUser extends Document {
     email: string;
     password: string;
     role: "admin" | "user";
+
     getJsonWebToken(): string;
+
+    matchPassword(password: string): Promise<boolean>;
 }
 
 const userSchema = new Schema<IUser>({
@@ -43,10 +46,9 @@ userSchema.pre("save", async function () {
     this.password = await bcrypt.hash(this.password, salt);
 });
 
-userSchema.pre("save", async function () {
-    const salt = await genSalt(10);
-    this.password = await bcrypt.hash(this.password, salt);
-});
+userSchema.methods.matchPassword = async function (password: string): Promise<boolean> {
+    return await bcrypt.compare(password, this.password);
+};
 
 userSchema.methods.getJsonWebToken = function (): string {
     return jwt.sign(

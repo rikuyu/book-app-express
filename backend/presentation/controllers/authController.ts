@@ -1,8 +1,7 @@
 import {asyncHandler} from "../../shared/error/asyncHandler";
 import {NextFunction, Request, Response} from "express";
-import {RegisterRequest, LoginRequest} from "../types/request";
+import {LoginRequest, RegisterRequest} from "../types/request";
 import * as authService from "../../domain/service/authService";
-import * as userService from "../../domain/service/userService";
 
 export const register = asyncHandler(async (req: RegisterRequest, res: Response) => {
     const user = await authService.register(req.body);
@@ -16,7 +15,10 @@ export const register = asyncHandler(async (req: RegisterRequest, res: Response)
 });
 
 export const login = asyncHandler(async (req: LoginRequest, res: Response, next: NextFunction) => {
-    const user = await userService.getUserByEmail(req.body.email);
+    const user = await authService.login(req.body);
+    res.status(200).json({
+        message: `${user.name} login success`,
+    });
 });
 
 export const logout = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
