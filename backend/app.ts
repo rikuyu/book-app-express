@@ -8,6 +8,7 @@ import {userRouter} from "./presentation/routes/userRouter";
 import {borrowRecordRouter} from "./presentation/routes/borrowRecordRouter";
 import errorHandler from "./presentation/middleware/errorHandler";
 import requestLogger from "./presentation/middleware/requestLogger";
+import cookieParser from "cookie-parser";
 import dotenv from "dotenv";
 
 export const app = express();
@@ -21,6 +22,7 @@ app.use(cors({
     credentials: true,
 }));
 app.use(express.json());
+app.use(cookieParser());
 
 app.use("/auth", authRouter);
 app.use("/books", bookRouter);
