@@ -1,12 +1,12 @@
 import {Request} from "express";
 
-interface BookRequest extends Request {
+export interface BookRequest extends Request {
     body: {
         title: string
     };
 }
 
-interface RegisterRequest extends Request {
+export interface RegisterRequest extends Request {
     body: {
         name: string
         email: string
@@ -14,18 +14,23 @@ interface RegisterRequest extends Request {
     };
 }
 
-interface LoginRequest extends Request {
+export interface LoginRequest extends Request {
     body: {
         email: string
         password: string
     };
 }
 
-interface BorrowRecordRequest extends Request {
+export interface BorrowBookRequest extends Request {
     body: {
         userId: string
         bookId: string
     };
 }
 
-export {BookRequest, RegisterRequest, LoginRequest, BorrowRecordRequest};
+export interface ReturnBookRequest extends Request {
+    body: { 
+        borrowRecordId: string
+        bookId: string
+    };
+}

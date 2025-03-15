@@ -8,12 +8,12 @@ export const getBorrowRecords = async (): Promise<IBorrowRecord[]> => {
     return toObjectArray(borrowRecords);
 };
 
-export const getBorrowRecordByBook = async (bookId: string): Promise<IBorrowRecord[]> => {
+export const getBorrowRecordsByBook = async (bookId: string): Promise<IBorrowRecord[]> => {
     const borrowRecords = await BorrowRecord.find({book_id: bookId});
     return toObjectArray(borrowRecords);
 };
 
-export const getBorrowRecordByUser = async (userId: string): Promise<IBorrowRecord[]> => {
+export const getBorrowRecordsByUser = async (userId: string): Promise<IBorrowRecord[]> => {
     const borrowRecords = await BorrowRecord.find({user_id: userId});
     return toObjectArray(borrowRecords);
 };

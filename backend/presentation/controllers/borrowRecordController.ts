@@ -1,6 +1,6 @@
 import {Response, Request} from "express";
 import * as service from "../../domain/service/borrowRecordService";
-import {BorrowRecordRequest} from "../types/request";
+import {BorrowBookRequest, ReturnBookRequest} from "../types/request";
 import {asyncHandler} from "../../shared/error/asyncHandler";
 
 const getAllBorrowRecords = asyncHandler(async (
@@ -12,23 +12,23 @@ const getAllBorrowRecords = asyncHandler(async (
 });
 
 const getBorrowRecordsByBook = asyncHandler(async (
-    req: Request<{ userId: string }>,
+    req: Request<{ bookId: string }>,
     res: Response,
 ): Promise<void> => {
-    const borrowRecords = await service.getBorrowRecordByUser(req.params.userId);
+    const borrowRecords = await service.getBorrowRecordsByBook(req.params.bookId);
     res.status(200).json(borrowRecords);
 });
 
 const getBorrowRecordsByUser = asyncHandler(async (
-    req: Request<{ bookId: string }>,
+    req: Request<{ userId: string }>,
     res: Response,
 ): Promise<void> => {
-    const borrowRecords = await service.getBorrowRecordByBook(req.params.bookId);
+    const borrowRecords = await service.getBorrowRecordsByUser(req.params.userId);
     res.status(200).json(borrowRecords);
 });
 
 const borrowBook = asyncHandler(async (
-    req: BorrowRecordRequest,
+    req: BorrowBookRequest,
     res: Response,
 ): Promise<void> => {
     await service.borrowBook(req.body.userId, req.body.bookId);
@@ -36,11 +36,10 @@ const borrowBook = asyncHandler(async (
 });
 
 const returnBook = asyncHandler(async (
-    req: Request<{ borrowRecordId: string, bookId: string }>,
+    req: ReturnBookRequest,
     res: Response,
 ): Promise<void> => {
-    const {borrowRecordId, bookId} = req.params;
-    await service.returnBook(borrowRecordId, bookId);
+    await service.returnBook(req.body.borrowRecordId, req.body.bookId);
     res.status(204).send("success");
 });
 

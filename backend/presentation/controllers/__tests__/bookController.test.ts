@@ -73,11 +73,7 @@ describe("bookController Test", () => {
         const jsonMock = vi.fn();
         const statusMock = vi.fn().mockReturnValue({json: jsonMock});
 
-        const req: BookRequest = {
-            body: {
-                title: bookTitle,
-            },
-        } as Request<{ id: string }>;
+        const req = {body: { title: bookTitle }} as BookRequest;
         const res = {status: statusMock} as unknown as Response;
 
         it("success with 201", async () => {
