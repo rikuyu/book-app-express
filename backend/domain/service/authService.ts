@@ -15,14 +15,17 @@ export const login = async (
         email: string,
         password: string,
     },
-): Promise<IUser> => {
+): Promise<{ user: IUser, token: string }> => {
     const user = await User.findOne({email: credentials.email}).select("name password");
-    if (user == null) {
+    if (!user) {
         throw new NotFoundError(`No user found with the given email: ${credentials.email}`);
     }
     const isValid = await user.matchPassword(credentials.password);
     if (!isValid) {
         throw new BadRequestError(`Invalid password: ${credentials.password}`);
     }
-    return user;
+    return {
+        user,
+        token: user.getJsonWebToken(),
+    };
 };
