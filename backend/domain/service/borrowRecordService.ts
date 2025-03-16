@@ -2,6 +2,7 @@ import BorrowRecord, {IBorrowRecord} from "../model/borrowRecord";
 import Book, {IBook} from "../model/book";
 import mongoose from "mongoose";
 import {NotFoundError} from "../../shared/error/notFoundError";
+import {BadRequestError} from "../../shared/error/badRequestError";
 
 export const getBorrowRecords = async (): Promise<IBorrowRecord[]> => {
     const borrowRecords = await BorrowRecord.find({});
@@ -24,15 +25,21 @@ export const borrowBook = async (
     userId: string,
     bookId: string,
 ): Promise<void> => {
+    if (!bookId) {
+        throw new BadRequestError("book id undefined");
+    }
+    if (!userId) {
+        throw new BadRequestError("user id id undefined");
+    }
     const session = await mongoose.startSession();
     session.startTransaction();
 
-    return Book.find({_id: bookId})
-        .then((books: IBook[]) => {
-            if (books.length == 0 || books.length > 1) {
+    return Book.findById(bookId).exec()
+        .then((book: IBook) => {
+            if (!book) {
                 throw new NotFoundError("No book found error");
             }
-            if (books[0].status != "available") {
+            if (book.status != "available") {
                 throw new NotFoundError("No available book error");
             }
         })

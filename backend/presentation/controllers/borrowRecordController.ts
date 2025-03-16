@@ -31,7 +31,7 @@ const borrowBook = asyncHandler(async (
     req: BorrowBookRequest,
     res: Response,
 ): Promise<void> => {
-    await service.borrowBook(req.body.userId, req.body.bookId);
+    await service.borrowBook(req.userId, req.body.bookId);
     res.status(204).send("success");
 });
 

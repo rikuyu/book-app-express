@@ -21,7 +21,7 @@ describe("borrowRecordController Test", () => {
 
         it("success with 200 & borrowRecords", async () => {
             const mockBorrowRecords: Partial<IBorrowRecord>[] = [
-               {user_id: new mongoose.Types.ObjectId(), book_id: new mongoose.Types.ObjectId()}
+                {user_id: new mongoose.Types.ObjectId(), book_id: new mongoose.Types.ObjectId()},
             ];
 
             vi.spyOn(service, "getBorrowRecords").mockResolvedValue(mockBorrowRecords as IBorrowRecord[]);
@@ -48,12 +48,12 @@ describe("borrowRecordController Test", () => {
         const jsonMock = vi.fn();
         const statusMock = vi.fn().mockReturnValue({json: jsonMock});
 
-        const req = {params : {bookId: "1"} } as Request<{bookId: string}>;
+        const req = {params: {bookId: "1"}} as Request<{ bookId: string }>;
         const res = {status: statusMock} as unknown as Response;
 
         it("success with 200 & borrowRecords", async () => {
             const mockBorrowRecords: Partial<IBorrowRecord>[] = [
-               {user_id: new mongoose.Types.ObjectId(), book_id: new mongoose.Types.ObjectId()}
+                {user_id: new mongoose.Types.ObjectId(), book_id: new mongoose.Types.ObjectId()},
             ];
 
             vi.spyOn(service, "getBorrowRecordsByBook").mockResolvedValue(mockBorrowRecords as IBorrowRecord[]);
@@ -80,12 +80,12 @@ describe("borrowRecordController Test", () => {
         const jsonMock = vi.fn();
         const statusMock = vi.fn().mockReturnValue({json: jsonMock});
 
-        const req = {params : {userId: "1"} } as Request<{userId: string}>;
+        const req = {params: {userId: "1"}} as Request<{ userId: string }>;
         const res = {status: statusMock} as unknown as Response;
 
         it("success with 200 & borrowRecords", async () => {
             const mockBorrowRecords: Partial<IBorrowRecord>[] = [
-               {user_id: new mongoose.Types.ObjectId(), book_id: new mongoose.Types.ObjectId()}
+                {user_id: new mongoose.Types.ObjectId(), book_id: new mongoose.Types.ObjectId()},
             ];
 
             vi.spyOn(service, "getBorrowRecordsByUser").mockResolvedValue(mockBorrowRecords as IBorrowRecord[]);
@@ -112,7 +112,7 @@ describe("borrowRecordController Test", () => {
         const jsonMock = vi.fn();
         const statusMock = vi.fn().mockReturnValue({json: jsonMock});
 
-        const req = {body : {userId: "1", bookId: "1"} } as BorrowBookRequest;
+        const req = {body: {bookId: "1"}} as BorrowBookRequest;
         const res = {status: statusMock} as unknown as Response;
 
         it("success with 204", async () => {
@@ -140,7 +140,7 @@ describe("borrowRecordController Test", () => {
         const jsonMock = vi.fn();
         const statusMock = vi.fn().mockReturnValue({json: jsonMock});
 
-        const req = {body : {borrowRecordId: "1", bookId: "1"} } as ReturnBookRequest;
+        const req = {body: {borrowRecordId: "1", bookId: "1"}} as ReturnBookRequest;
         const res = {status: statusMock} as unknown as Response;
 
         it("success with 204", async () => {

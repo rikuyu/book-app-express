@@ -3,16 +3,12 @@ import {NextFunction, Request, Response} from "express";
 import {AuthError} from "../../shared/error/authError";
 import jwt, {JwtPayload} from "jsonwebtoken";
 
-interface AuthRequest extends Request {
-    userId: string;
-}
-
 interface CustomPayload extends JwtPayload {
     id: string;
 }
 
 export const verifyJwt = asyncHandler(async (
-    req: AuthRequest,
+    req: Request,
     _res: Response,
     next: NextFunction,
 ) => {
@@ -26,10 +22,6 @@ export const verifyJwt = asyncHandler(async (
     }
     try {
         const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY) as CustomPayload;
-
-        console.log(`🔐 valid token`);
-        console.log(JSON.stringify(decoded, null, 2));
-
         req.userId = decoded.id;
         next();
     } catch (e) {

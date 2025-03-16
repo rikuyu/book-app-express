@@ -23,7 +23,6 @@ export interface LoginRequest extends Request {
 
 export interface BorrowBookRequest extends Request {
     body: {
-        userId: string
         bookId: string
     };
 }
