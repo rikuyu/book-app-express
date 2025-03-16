@@ -3,26 +3,26 @@ import {useState} from "react";
 import {BASE_URL} from "../utils/Constants.ts";
 
 function Login() {
-    const [id, setId] = useState("1");
-    const [password, setPassword] = useState("pw");
+    const [email, setEmail] = useState("ruffy@example.com");
+    const [password, setPassword] = useState("test");
     const navigate = useNavigate();
 
     const handleLogin = () => {
-        if (!id || !password) {
-            alert("ユーザーIDとパスワードを入力してください。");
+        if (!email || !password) {
+            alert("メールアドレスとパスワードを入力してください。");
             return;
         }
 
-        fetch(`${BASE_URL}/login`, {
+        fetch(`${BASE_URL}/auth/login`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({id, password}),
+            body: JSON.stringify({email, password}),
             credentials: "include",
         })
-            .then(response => {
-                if (!response.ok) {
+            .then(res => {
+                if (!res.ok) {
                     throw new Error("Login failed");
                 }
                 console.log("Login Success");
@@ -41,9 +41,9 @@ function Login() {
                 <h1 className="text-2xl font-bold">Login Page</h1>
                 <input
                     type="text"
-                    placeholder="ユーザーID"
-                    value={id}
-                    onChange={(e) => setId(e.target.value)}
+                    placeholder="メールアドレス"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                     className="w-80 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 ring-blue-200"
                 />
                 <input
