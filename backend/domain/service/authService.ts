@@ -15,7 +15,7 @@ export const login = async (
         email: string,
         password: string,
     },
-): Promise<{ user: IUser, token: string }> => {
+): Promise<IUser> => {
     const user = await User.findOne({email: credentials.email}).select("name password");
     if (!user) {
         throw new NotFoundError(`No user found with the given email: ${credentials.email}`);
@@ -24,8 +24,5 @@ export const login = async (
     if (!isValid) {
         throw new BadRequestError(`Invalid password: ${credentials.password}`);
     }
-    return {
-        user,
-        token: user.getJsonWebToken(),
-    };
+    return user;
 };
