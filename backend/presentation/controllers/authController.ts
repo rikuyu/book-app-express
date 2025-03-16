@@ -29,14 +29,10 @@ const sendTokenResponse = (
     const oneHour = 60 * 60 * 1000;
     const options: CookieOptions = {
         expires: new Date(Date.now() + oneHour),
-        httpOnly: true,
-        secure: true,
+        httpOnly: false,
     };
     res
         .status(statusCode)
         .cookie("token", token, options)
-        .json({
-            message,
-            token,
-        });
+        .json({ message, token });
 };
