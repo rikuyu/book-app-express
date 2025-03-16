@@ -38,8 +38,24 @@ const BookTable: React.FC = () => {
             });
     };
 
-    const handleBorrowBook = (id: number) => {
-        alert(`Book ID ${id} を貸し出しました！`);
+    const handleBorrowBook = (bookId: number) => {
+        fetch(`${BASE_URL}/borrow_records`, {
+            method: "POST",
+            credentials: "include",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({bookId}),
+        })
+            .then((res) => {
+                if (!res.ok) {
+                    throw new Error(`HTTP error! status: ${res.status}`);
+                }
+                fetchBooks();
+            })
+            .catch((error) => {
+                console.error("Error fetching books:", error);
+            });
     };
 
     return (
