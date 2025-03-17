@@ -16,6 +16,11 @@ const getBookById = asyncHandler(async (
     res.status(200).json(book);
 });
 
+const getPopularBooks = asyncHandler(async (_req: Request, res: Response): Promise<void> => {
+    const popularBooks = await service.getPopularBooks();
+    res.status(200).json(popularBooks);
+});
+
 const createBook = asyncHandler(async (
     req: BookRequest,
     res: Response,
@@ -32,4 +37,4 @@ const deleteBook = asyncHandler(async (
     res.status(200).json(book);
 });
 
-export {getBooks, getBookById, createBook, deleteBook};
+export {getBooks, getBookById, createBook, deleteBook, getPopularBooks};

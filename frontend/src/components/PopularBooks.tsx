@@ -13,10 +13,10 @@ const PopularBooks: React.FC = () => {
     const logout = useLogout();
 
     useEffect(() => {
-        fetchBooks()
+        fetchPopularBooks()
     }, [])
 
-    const fetchBooks = () => {
+    const fetchPopularBooks = () => {
         fetch(`${BASE_URL}/books/popular`, {
             method: "GET",
             credentials: "include",
