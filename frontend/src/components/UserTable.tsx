@@ -8,7 +8,7 @@ type User = {
     id: number;
     name: string;
     email: string;
-    role: 'USER' | 'ADMIN';
+    role: 'user' | 'admin';
 };
 
 const UserTable: React.FC = () => {
@@ -85,7 +85,7 @@ const UserTable: React.FC = () => {
                             <td className="border border-gray-300 px-4 py-3 text-center">{user.name}</td>
                             <td className="border border-gray-300 px-4 py-3 text-center">{user.email}</td>
                             <td className="border border-gray-300 px-4 py-3 text-center">
-                              <span className={`font-bold ${user.role === 'USER' ? 'text-blue-600' : 'text-red-600'}`}>
+                              <span className={`font-bold ${user.role === 'user' ? 'text-blue-600' : 'text-red-600'}`}>
                                 {user.role}
                               </span>
                             </td>

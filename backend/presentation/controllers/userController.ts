@@ -2,6 +2,14 @@ import {Request, Response} from "express";
 import * as service from "../../domain/service/userService";
 import {asyncHandler} from "../../shared/error/asyncHandler";
 
+const getMe = asyncHandler(async (
+    req: Request,
+    res: Response,
+): Promise<void> => {
+    const me = await service.getMe(req.userId);
+    res.status(200).json(me);
+});
+
 const getUsers = asyncHandler(async (
     _req: Request,
     res: Response,
@@ -26,4 +34,4 @@ const deleteUser = asyncHandler(async (
     res.status(200).json(user);
 });
 
-export {getUsers, getUserById, deleteUser};
+export {getUsers, getUserById, deleteUser, getMe};

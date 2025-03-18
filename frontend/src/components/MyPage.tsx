@@ -40,10 +40,10 @@ function MyPage() {
             })
             .then((data) => {
                 setUserData({
-                    id: data.id,
+                    id: data._id,
                     name: data.name,
                     email: data.email,
-                    isAdmin: data.isAdmin,
+                    isAdmin: data.role === 'admin',
                 });
             })
             .catch((error) => {

@@ -1,6 +1,14 @@
 import User, {IUser} from "../model/user";
 import {NotFoundError} from "../../shared/error/notFoundError";
 
+export const getMe = async (id: string): Promise<IUser> => {
+    const me = await User.findById(id);
+    if (!me) {
+        throw new NotFoundError(`My data not found`);
+    }
+    return me;
+};
+
 export const getUsers = (): Promise<IUser[]> => User.find({});
 
 export const getUserById = async (id: string): Promise<IUser> => {

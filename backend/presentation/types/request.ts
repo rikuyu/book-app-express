@@ -6,6 +6,12 @@ export interface BookRequest extends Request {
     };
 }
 
+export interface SearchBookRequest extends Request {
+    query: {
+        keyword: string
+    };
+}
+
 export interface RegisterRequest extends Request {
     body: {
         name: string
