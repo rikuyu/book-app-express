@@ -4,7 +4,8 @@
   "main": "app.ts",
   "scripts": {
     "start": "ts-node-dev --respawn app.ts",
-    "test": "vitest --ui "
+    "test": "vitest --ui",
+    "lint": "npx eslint . --ext .ts"
   },
   "author": "",
   "license": "ISC",
