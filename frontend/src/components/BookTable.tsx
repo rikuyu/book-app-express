@@ -38,6 +38,27 @@ const BookTable: React.FC = () => {
             });
     };
 
+    const handleBookDetails = (bookId: number) => {
+        fetch(`${BASE_URL}/books/${bookId}`, {
+            method: "GET",
+            credentials: "include",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        })
+            .then((res) => {
+                if (!res.ok) {
+                    throw new Error(`HTTP error! status: ${res.status}`);
+                }
+                return res.json();
+            })
+            .then((b: Book) => alert(`${b._id}: ${b.title}`))
+            .catch((error) => {
+                alert(error);
+                console.error("Error fetching books:", error);
+            });
+    };
+
     const handleBorrowBook = (bookId: number) => {
         fetch(`${BASE_URL}/borrow_records`, {
             method: "POST",
@@ -54,7 +75,7 @@ const BookTable: React.FC = () => {
                 fetchBooks();
             })
             .catch((error) => {
-                alert(error)
+                alert(error);
                 console.error("Error fetching books:", error);
             });
     };
@@ -75,7 +96,7 @@ const BookTable: React.FC = () => {
                 fetchBooks();
             })
             .catch((error) => {
-                alert(error)
+                alert(error);
                 console.error("Error fetching books:", error);
             });
     };
@@ -130,11 +151,18 @@ const BookTable: React.FC = () => {
                     {books.map((book) => (
                         <tr key={book._id}>
                             <td className="border border-gray-300 px-0 py-2 text-center">{book._id}</td>
-                            <td className="border border-gray-300 px-4 py-2 text-center">{book.title}</td>
                             <td className="border border-gray-300 px-4 py-2 text-center">
-                  <span className={`font-bold ${book.status === "available" ? "text-green-600" : "text-red-600"}`}>
-                        {book.status === "available" ? "利用可能" : "貸出中"}
-                    </span>
+                                <span
+                                    className="font-medium hover:underline cursor-pointer"
+                                    onClick={() => handleBookDetails(book._id)}
+                                >
+                                    {book.title}
+                                </span>
+                            </td>
+                            <td className="border border-gray-300 px-4 py-2 text-center">
+                              <span className={`font-bold ${book.status === "available" ? "text-green-600" : "text-red-600"}`}>
+                                    {book.status === "available" ? "利用可能" : "貸出中"}
+                              </span>
                             </td>
                             <td className="border border-gray-300 px-4 py-2 text-center">
                                 <button
