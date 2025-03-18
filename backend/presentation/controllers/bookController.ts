@@ -1,6 +1,6 @@
 import {Request, Response} from "express";
 import * as service from "../../domain/service/bookService";
-import {BookRequest} from "../types/request";
+import {BookRequest, SearchBookRequest} from "../types/request";
 import {asyncHandler} from "../../shared/error/asyncHandler";
 
 const getBooks = asyncHandler(async (_req: Request, res: Response): Promise<void> => {
@@ -21,6 +21,11 @@ const getPopularBooks = asyncHandler(async (_req: Request, res: Response): Promi
     res.status(200).json(popularBooks);
 });
 
+const getSearchedBooks = asyncHandler(async (req: SearchBookRequest, res: Response): Promise<void> => {
+    const books = await service.searchBooks(req.query.keyword);
+    res.status(200).json(books);
+});
+
 const createBook = asyncHandler(async (
     req: BookRequest,
     res: Response,
@@ -37,4 +42,11 @@ const deleteBook = asyncHandler(async (
     res.status(200).json(book);
 });
 
-export {getBooks, getBookById, createBook, deleteBook, getPopularBooks};
+export {
+    getBooks,
+    getBookById,
+    createBook,
+    deleteBook,
+    getPopularBooks,
+    getSearchedBooks,
+};

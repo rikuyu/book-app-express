@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState} from "react";
 import {FaSearch} from "react-icons/fa";
 import {IoMenu} from "react-icons/io5";
 import {IoMdSend} from "react-icons/io";
@@ -9,7 +9,7 @@ import {BASE_URL} from "../utils/Constants.ts";
 
 const BookSearch: React.FC = () => {
     const [menuOpen, setMenuOpen] = useState(false);
-    const [searchText, setSearchText] = useState('');
+    const [searchText, setSearchText] = useState("");
     const [books, setBooks] = useState<Book[]>([]);
     const logout = useLogout();
 
@@ -17,7 +17,8 @@ const BookSearch: React.FC = () => {
 
     const handleSearch = () => {
         if (searchText.length == 0) {
-            alert("キーワードを入力してください")
+            alert("キーワードを入力してください");
+            return;
         }
 
         fetch(`${BASE_URL}/books/search?keyword=${encodeURIComponent(searchText)}`, {
@@ -32,13 +33,13 @@ const BookSearch: React.FC = () => {
             })
             .then((data: Book[]) => {
                 if (data.length == 0) {
-                    alert("本が見つけられませんでした")
+                    alert("本が見つけられませんでした");
                 } else {
                     setBooks(data);
                 }
             })
             .catch((error) => console.error(error))
-            .finally(() => setSearchText(''));
+            .finally(() => setSearchText(""));
     };
 
 
@@ -113,8 +114,8 @@ const BookSearch: React.FC = () => {
                             <td className="border border-gray-300 px-4 py-2 text-center">{book.title}</td>
                             <td className="border border-gray-300 px-4 py-2 text-center">
                               <span
-                                  className={`font-bold ${book.status === 'available' ? 'text-green-600' : 'text-red-600'}`}>
-                                {book.status === 'available' ? '利用可能' : '貸出中'}
+                                  className={`font-bold ${book.status === "available" ? "text-green-600" : "text-red-600"}`}>
+                                {book.status === "available" ? "利用可能" : "貸出中"}
                               </span>
                             </td>
                         </tr>

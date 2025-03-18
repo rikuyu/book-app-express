@@ -27,6 +27,10 @@ export const getPopularBooks = async (): Promise<IBook[]> => {
     return popularBooks;
 };
 
+export const searchBooks = async (keyword: string): Promise<IBook[]> => {
+    return Book.find({title: {$regex: keyword, $options: "i"}});
+};
+
 export const createBook = async (book: { title: string }): Promise<IBook> => await Book.create(book);
 
 export const deleteBook = async (id: string): Promise<IBook> => {
