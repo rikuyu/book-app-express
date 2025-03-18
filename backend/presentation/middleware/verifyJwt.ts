@@ -24,7 +24,7 @@ export const verifyJwt = asyncHandler(async (
         const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY) as CustomPayload;
         req.userId = decoded.id;
         next();
-    } catch (e) {
+    } catch {
         throw new AuthError("Invalid Json Web Token");
     }
 });

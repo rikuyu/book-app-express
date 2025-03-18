@@ -19,7 +19,7 @@ export const getBorrowRecordsByUser = async (userId: string): Promise<IBorrowRec
     return toObjectArray(borrowRecords);
 };
 
-const toObjectArray = (records: any[]) => records.map(record => record.toObject());
+const toObjectArray = (records: mongoose.Document[]) => records.map(record => record.toObject());
 
 export const borrowBook = async (
     userId: string,

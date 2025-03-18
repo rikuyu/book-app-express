@@ -27,7 +27,7 @@ const userSchema = new Schema<IUser>({
                 const pattern = /^([\w-.]+@([\w-]+\.)+[\w-]{2,4})?$/;
                 return pattern.test(v);
             },
-            message: (props: { value: any; }) => `${props.value} is not a valid email.`,
+            message: (props: { value: string; }) => `${props.value} is not a valid email.`,
         },
     },
     password: {

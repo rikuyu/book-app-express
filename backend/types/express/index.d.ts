@@ -1,4 +1,4 @@
-import express from "express";
+import express from "express"; // eslint-disable-line @typescript-eslint/no-unused-vars
 
 declare module "express" {
     export interface Request {
