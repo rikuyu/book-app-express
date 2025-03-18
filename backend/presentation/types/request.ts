@@ -34,8 +34,8 @@ export interface BorrowBookRequest extends Request {
 }
 
 export interface ReturnBookRequest extends Request {
-    body: { 
-        borrowRecordId: string
+    body: {
+        userId: string
         bookId: string
     };
 }

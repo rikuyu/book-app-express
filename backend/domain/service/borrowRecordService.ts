@@ -61,7 +61,7 @@ export const borrowBook = async (
 };
 
 export const returnBook = async (
-    borrowRecordId: string,
+    userId: string,
     bookId: string,
 ): Promise<void> => {
     const session = await mongoose.startSession();
@@ -79,7 +79,7 @@ export const returnBook = async (
         .then(() => {
             return BorrowRecord.findOneAndUpdate(
                 {
-                    _id: borrowRecordId,
+                    user_id: userId,
                     book_id: bookId,
                     returned_date: {$exists: false},
                 },

@@ -54,6 +54,28 @@ const BookTable: React.FC = () => {
                 fetchBooks();
             })
             .catch((error) => {
+                alert(error)
+                console.error("Error fetching books:", error);
+            });
+    };
+
+    const handleReturnBook = (bookId: number) => {
+        fetch(`${BASE_URL}/borrow_records/return`, {
+            method: "PUT",
+            credentials: "include",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({bookId}),
+        })
+            .then((res) => {
+                if (!res.ok) {
+                    throw new Error(`HTTP error! status: ${res.status}`);
+                }
+                fetchBooks();
+            })
+            .catch((error) => {
+                alert(error)
                 console.error("Error fetching books:", error);
             });
     };
@@ -111,20 +133,23 @@ const BookTable: React.FC = () => {
                             <td className="border border-gray-300 px-4 py-2 text-center">{book.title}</td>
                             <td className="border border-gray-300 px-4 py-2 text-center">
                   <span className={`font-bold ${book.status === "available" ? "text-green-600" : "text-red-600"}`}>
-                    {book.status === "available" ? "利用可能" : "貸出中"}
-                  </span>
+                        {book.status === "available" ? "利用可能" : "貸出中"}
+                    </span>
                             </td>
                             <td className="border border-gray-300 px-4 py-2 text-center">
                                 <button
                                     className={`px-4 py-2 rounded text-white ${
                                         book.status === "available"
                                             ? "bg-blue-500 hover:bg-blue-600"
-                                            : "bg-gray-400 cursor-not-allowed"
+                                            : "bg-red-500 hover:bg-red-600"
                                     }`}
-                                    onClick={() => handleBorrowBook(book._id)}
-                                    disabled={book.status !== "available"}
+                                    onClick={() =>
+                                        book.status === "available"
+                                            ? handleBorrowBook(book._id)
+                                            : handleReturnBook(book._id)
+                                    }
                                 >
-                                    貸出
+                                    {book.status === "available" ? "貸出" : "返却"}
                                 </button>
                             </td>
                         </tr>

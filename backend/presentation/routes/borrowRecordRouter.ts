@@ -13,4 +13,4 @@ borrowRecordRouter.get("/", getAllBorrowRecords);
 borrowRecordRouter.get("/books", getBorrowRecordsByBook);
 borrowRecordRouter.get("/users", getBorrowRecordsByUser);
 borrowRecordRouter.post("/", borrowBook);
-borrowRecordRouter.put("/:borrowRecordId/books/:bookId", returnBook);
+borrowRecordRouter.put("/return", returnBook);
