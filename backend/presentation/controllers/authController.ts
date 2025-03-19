@@ -2,6 +2,7 @@ import {asyncHandler} from "../../shared/error/asyncHandler";
 import {Request, Response} from "express";
 import {ForgotPasswordRequest, LoginRequest, RegisterRequest} from "../types/request";
 import * as authService from "../../domain/service/authService";
+import * as emailService from "../../domain/service/emailService";
 import {IUser} from "../../domain/model/user";
 import {CookieOptions} from "express-serve-static-core";
 
@@ -46,3 +47,13 @@ export const resetPassword = asyncHandler(async (req: ForgotPasswordRequest, res
 export const logout = asyncHandler(async (req: Request, res: Response) => {
     res.status(200).send("logout");
 });
+
+export const sendEmail = asyncHandler(async (req: ForgotPasswordRequest, res: Response) => {
+    await emailService.sendEmail(
+        req.body.email,
+        req.body.subject,
+        req.body.text,
+    );
+    res.status(200).send("email send");
+});
+

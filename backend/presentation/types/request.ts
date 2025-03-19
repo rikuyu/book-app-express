@@ -30,6 +30,8 @@ export interface LoginRequest extends Request {
 export interface ForgotPasswordRequest extends Request {
     body: {
         email: string
+        subject: string
+        text: string
     };
 }
 
