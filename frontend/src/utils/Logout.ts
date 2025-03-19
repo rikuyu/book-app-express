@@ -5,7 +5,7 @@ export const useLogout = () => {
     const navigate = useNavigate();
 
     return () => {
-        fetch(`${BASE_URL}/logout`, {
+        fetch(`${BASE_URL}/auth/logout`, {
             method: 'POST',
             credentials: 'include',
         })

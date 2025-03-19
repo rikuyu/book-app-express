@@ -20,16 +20,19 @@ export const forgotPassword = asyncHandler(async (req: ForgotPasswordRequest, re
     const userName = await authService.forgotPassword(req.body.email);
     res
         .status(200)
-        .send(`email send to ${userName}`);
+        .send(`Email send to ${userName}`);
 });
 
 export const resetPassword = asyncHandler(async (req: ResetPasswordRequest, res: Response) => {
     const user = await authService.resetPassword(req.params.token, req.body.newPassword);
-    sendTokenResponse(user, 200, `reset password successfully`, res);
+    sendTokenResponse(user, 200, `Reset password successfully`, res);
 });
 
-export const logout = asyncHandler(async (req: Request, res: Response) => {
-    res.status(200).send("logout");
+export const logout = asyncHandler(async (_req: Request, res: Response) => {
+    res
+        .status(200)
+        .clearCookie("token", {httpOnly: true, secure: true, sameSite: "strict"})
+        .json({message: "Logged out successfully"});
 });
 
 export const sendEmail = asyncHandler(async (req: ForgotPasswordRequest, res: Response) => {
@@ -38,7 +41,7 @@ export const sendEmail = asyncHandler(async (req: ForgotPasswordRequest, res: Re
         req.body.subject,
         req.body.text,
     );
-    res.status(200).send("email send");
+    res.status(200).send("Email send");
 });
 
 const sendTokenResponse = (

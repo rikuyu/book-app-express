@@ -50,7 +50,7 @@ function ResetPassword() {
                 if (!response.ok) {
                     throw new Error("Failed to fetch user data");
                 }
-                if (window.confirm("ログイン画面に移動します。")) {
+                if (window.confirm("パスワードの再設定を行いました。\nログイン画面に移動します。")) {
                     logout();
                 }
             })

@@ -7,6 +7,6 @@ authRouter.post("/register", register);
 authRouter.post("/login", login);
 authRouter.post("/reset_password", forgotPassword);
 authRouter.put("/reset_password/:token", resetPassword);
-authRouter.get("/logout", logout);
+authRouter.post("/logout", logout);
 
-authRouter.post("/email", sendEmail)
+authRouter.post("/email", sendEmail);
