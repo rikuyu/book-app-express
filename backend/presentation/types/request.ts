@@ -27,6 +27,12 @@ export interface LoginRequest extends Request {
     };
 }
 
+export interface ForgotPasswordRequest extends Request {
+    body: {
+        email: string
+    };
+}
+
 export interface BorrowBookRequest extends Request {
     body: {
         bookId: string

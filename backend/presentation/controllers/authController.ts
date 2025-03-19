@@ -1,6 +1,6 @@
 import {asyncHandler} from "../../shared/error/asyncHandler";
 import {Request, Response} from "express";
-import {LoginRequest, RegisterRequest} from "../types/request";
+import {ForgotPasswordRequest, LoginRequest, RegisterRequest} from "../types/request";
 import * as authService from "../../domain/service/authService";
 import {IUser} from "../../domain/model/user";
 import {CookieOptions} from "express-serve-static-core";
@@ -13,10 +13,6 @@ export const register = asyncHandler(async (req: RegisterRequest, res: Response)
 export const login = asyncHandler(async (req: LoginRequest, res: Response) => {
     const user = await authService.login(req.body);
     sendTokenResponse(user, 200, `${user.name} login success`, res);
-});
-
-export const logout = asyncHandler(async (req: Request, res: Response) => {
-    res.status(200).send("logout");
 });
 
 const sendTokenResponse = (
@@ -34,5 +30,19 @@ const sendTokenResponse = (
     res
         .status(statusCode)
         .cookie("token", token, options)
-        .json({ message, token });
+        .json({message, token});
 };
+
+export const resetPassword = asyncHandler(async (req: ForgotPasswordRequest, res: Response) => {
+    const result = await authService.resetPassword(req.body.email);
+    res
+        .status(200)
+        .json({
+            user: result.name,
+            resetToken: result.resetToken,
+        });
+});
+
+export const logout = asyncHandler(async (req: Request, res: Response) => {
+    res.status(200).send("logout");
+});
