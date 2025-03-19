@@ -8,6 +8,7 @@ import MyPage from "./components/MyPage.tsx";
 import UserTable from "./components/UserTable.tsx";
 import BorrowRecordTable from "./components/BorowRecordTable.tsx";
 import AddBook from "./components/AddBook.tsx";
+import ResetPassword from "./components/ResetPassword.tsx";
 
 function App() {
     return (
@@ -20,6 +21,7 @@ function App() {
                 <Route path="/popular" element={<PopularBooks/>}/>
                 <Route path="/search" element={<BookSearch/>}/>
                 <Route path="/mypage" element={<MyPage/>}/>
+                <Route path="/reset_password" element={<ResetPassword/>}/>
                 <Route path="/admin/users" element={<UserTable/>}/>
                 <Route path="/admin/borrow_records" element={<BorrowRecordTable/>}/>
                 <Route path="/admin/add_book" element={<AddBook/>}/>

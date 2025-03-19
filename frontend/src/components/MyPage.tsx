@@ -1,7 +1,7 @@
-import React, {useEffect, useState} from 'react';
-import {MdAccountCircle} from 'react-icons/md';
-import {IoMenu} from 'react-icons/io5';
-import {Link} from 'react-router-dom';
+import React, {useEffect, useState} from "react";
+import {MdAccountCircle} from "react-icons/md";
+import {IoMenu} from "react-icons/io5";
+import {Link, useNavigate} from "react-router-dom";
 import {useLogout} from "../utils/Logout.ts";
 import {IoMdSettings} from "react-icons/io";
 import {BASE_URL} from "../utils/Constants.ts";
@@ -12,29 +12,30 @@ function MyPage() {
     const [adminMenuOpen, setAdminMenuOpen] = useState(false);
     const toggleAdminMenu = () => setAdminMenuOpen(!adminMenuOpen);
     const logout = useLogout();
+    const navigate = useNavigate();
     const [userData, setUserData] = useState({
-        id: '',
-        name: '',
-        email: '',
+        id: "",
+        name: "",
+        email: "",
         isAdmin: false,
     });
     const [profileImage, setProfileImage] = useState<string | null>(null);
 
     useEffect(() => {
-        fetchMe()
+        fetchMe();
     }, []);
 
     const fetchMe = () => {
         fetch(`${BASE_URL}/users/me`, {
-            method: 'GET',
+            method: "GET",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
             },
             credentials: "include",
         })
             .then((response) => {
                 if (!response.ok) {
-                    throw new Error('Failed to fetch user data');
+                    throw new Error("Failed to fetch user data");
                 }
                 return response.json();
             })
@@ -43,13 +44,13 @@ function MyPage() {
                     id: data._id,
                     name: data.name,
                     email: data.email,
-                    isAdmin: data.role === 'admin',
+                    isAdmin: data.role === "admin",
                 });
             })
             .catch((error) => {
-                console.error('Error fetching user data:', error);
+                console.error("Error fetching user data:", error);
             });
-    }
+    };
 
     const selectImage = (event: React.ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files?.[0];
@@ -64,12 +65,12 @@ function MyPage() {
 
     const uploadImage = (file: File) => {
         const formData = new FormData();
-        formData.append('file', file);
+        formData.append("file", file);
 
-        fetch('http://localhost:8080/users/image', {
-            method: 'POST',
+        fetch("http://localhost:8080/users/image", {
+            method: "POST",
             body: formData,
-            credentials: 'include',
+            credentials: "include",
         })
             .then((response) => {
                 if (!response.ok) {
@@ -78,12 +79,12 @@ function MyPage() {
                 return response.json();
             })
             .then((data) => {
-                console.log('Image uploaded successfully:', data);
-                alert('プロフィール画像を更新しました。');
+                console.log("Image uploaded successfully:", data);
+                alert("プロフィール画像を更新しました。");
             })
             .catch((error) => {
-                console.error('Error uploading image:', error);
-                alert('画像のアップロードに失敗しました。');
+                console.error("Error uploading image:", error);
+                alert("画像のアップロードに失敗しました。");
             });
     };
 
@@ -93,7 +94,7 @@ function MyPage() {
             <header className="bg-blue-600 text-white py-4 flex justify-between items-center px-5">
                 <div className="flex items-center relative">
                     <div className="flex items-center">
-                        <MdAccountCircle className="text-white w-7 h-7 mr-2" />
+                        <MdAccountCircle className="text-white w-7 h-7 mr-2"/>
                         <h1 className="text-2xl font-medium text-left">マイページ</h1>
                     </div>
                     {userData.isAdmin && (
@@ -102,10 +103,11 @@ function MyPage() {
                                 onClick={toggleAdminMenu}
                                 className="p-2 rounded-full focus:outline-none"
                             >
-                                <IoMdSettings className="text-white mx-3 w-7 h-7" />
+                                <IoMdSettings className="text-white mx-3 w-7 h-7"/>
                             </button>
                             {adminMenuOpen && (
-                                <div className="absolute top-full right-[-220px] mt-1 w-68 bg-white rounded shadow-lg z-10">
+                                <div
+                                    className="absolute top-full right-[-220px] mt-1 w-68 bg-white rounded shadow-lg z-10">
                                     <ul className="text-gray-800">
                                         <Link to="/admin/borrow_records">
                                             <li className="hover:bg-gray-100 px-5 py-4 cursor-pointer">【管理者用】すべての貸出記録</li>
@@ -176,11 +178,11 @@ function MyPage() {
                         <input id="file-upload" type="file" onChange={selectImage} className="hidden"/>
                         <button
                             className={`py-1.5 px-3 rounded-lg font-medium mt-4 ${
-                                profileImage ? 'bg-blue-600 text-white hover:bg-blue-700 cursor-pointer' : 'bg-gray-300 text-gray-800 cursor-not-allowed'
+                                profileImage ? "bg-blue-600 text-white hover:bg-blue-700 cursor-pointer" : "bg-gray-300 text-gray-800 cursor-not-allowed"
                             }`}
                             disabled={!profileImage}
                             onClick={() => {
-                                const inputElement = document.getElementById('file-upload') as HTMLInputElement;
+                                const inputElement = document.getElementById("file-upload") as HTMLInputElement;
                                 if (inputElement.files?.[0]) {
                                     uploadImage(inputElement.files[0]);
                                 }
@@ -200,6 +202,14 @@ function MyPage() {
                     <div className="mb-3 border-b pb-1 border-black">
                         <span className="font-medium text-gray-700 text-xl">メールアドレス:</span>
                         <span className="ml-2 text-xl">{userData.email}</span>
+                    </div>
+                    <div className="text-right mt-6">
+                        <button
+                            className="text-red-500 hover:underline font-medium cursor-pointer"
+                            onClick={() => navigate("/reset_password", { state: { email: userData.email } })}
+                        >
+                            パスワードの再設定
+                        </button>
                     </div>
                 </div>
             </main>

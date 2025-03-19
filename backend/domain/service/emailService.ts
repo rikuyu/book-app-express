@@ -2,8 +2,8 @@ import nodemailer, {TransportOptions} from "nodemailer";
 
 export const sendEmail = async (
     email: string,
-    subject: string | undefined,
-    text: string | undefined,
+    subject: string,
+    text: string,
 ): Promise<void> => {
     const transporter = nodemailer.createTransport({
         host: process.env.SMTP_HOST,
@@ -18,7 +18,7 @@ export const sendEmail = async (
     await transporter.sendMail({
         from: process.env.SENDER_EMAIL,
         to: email,
-        subject: subject ?? "Reset Password Email",
-        text: text ?? "Please reset your password (no reply allowed)",
+        subject: subject,
+        text: text,
     });
 };

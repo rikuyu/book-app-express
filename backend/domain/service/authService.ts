@@ -2,7 +2,10 @@ import User, {IUser} from "../model/user";
 import {NotFoundError} from "../../shared/error/notFoundError";
 import {BadRequestError} from "../../shared/error/badRequestError";
 import * as userService from "./userService";
+import * as emailService from "./emailService";
 import {Document} from "mongoose";
+import crypto from "crypto";
+import {InternalServerError} from "../../shared/error/internalServerError";
 
 export const register = async (
     user: {
@@ -29,12 +32,49 @@ export const login = async (
     return user;
 };
 
-export const resetPassword = async (email: string): Promise<{ name: string, resetToken: string }> => {
+export const forgotPassword = async (email: string): Promise<string> => {
     const user = await userService.getUserByEmail(email) as (IUser & Document);
     if (!user) {
         throw new NotFoundError("User not found");
     }
     const resetToken = user.generateResetPasswordToken();
     await user.save();
-    return {name: user.name, resetToken: resetToken};
+
+    const hashedToken = crypto
+        .createHash("sha256")
+        .update(resetToken)
+        .digest("hex");
+
+    const subject = "Reset Password Email";
+    const description = `Email send to ${email} from ${process.env.SENDER_EMAIL}.\n\nPlease copy & paste the token below to reset your password.\n\n${hashedToken}`;
+
+    try {
+        await emailService.sendEmail(email, subject, description);
+        console.log("📧 Email send successfully");
+        return user.name;
+    } catch (e) {
+        user.resetPasswordToken = undefined;
+        user.resetPasswordExpire = undefined;
+        await user.save();
+        throw e;
+    }
+};
+
+export const resetPassword = async (
+    hashedToken: string,
+    newPassword: string,
+): Promise<IUser> => {
+    const user = await User.findOne({
+        resetPasswordToken: hashedToken,
+        resetPasswordExpire: {$gt: Date.now()},
+    });
+
+    if (!user) {
+        throw new InternalServerError("Invalid or expired reset token");
+    }
+
+    user.password = newPassword;
+    user.resetPasswordToken = undefined;
+    user.resetPasswordExpire = undefined;
+    return await user.save();
 };

@@ -1,11 +1,12 @@
 import express from "express";
-import {register, login, logout, resetPassword, sendEmail} from "../controllers/authController";
+import {register, login, logout, resetPassword, sendEmail, forgotPassword} from "../controllers/authController";
 
 export const authRouter = express.Router();
 
 authRouter.post("/register", register);
 authRouter.post("/login", login);
-authRouter.post("/reset_password", resetPassword);
+authRouter.post("/reset_password", forgotPassword);
+authRouter.put("/reset_password/:token", resetPassword);
 authRouter.get("/logout", logout);
 
 authRouter.post("/email", sendEmail)

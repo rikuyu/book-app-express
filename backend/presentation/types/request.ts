@@ -35,6 +35,15 @@ export interface ForgotPasswordRequest extends Request {
     };
 }
 
+export interface ResetPasswordRequest extends Request {
+    params: {
+        token: string
+    };
+    body: {
+        newPassword: string
+    };
+}
+
 export interface BorrowBookRequest extends Request {
     body: {
         bookId: string
