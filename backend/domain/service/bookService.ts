@@ -2,8 +2,6 @@ import Book, { BookData, IBook } from "../model/book";
 import { NotFoundError } from "../../shared/error/notFoundError";
 import BorrowRecord from "../model/borrowRecord";
 
-export const getBooks = (): Promise<IBook[]> => Book.find({});
-
 export const getBookData = async (userId: string): Promise<BookData[]> => {
     const books = await Book.find().lean();
 

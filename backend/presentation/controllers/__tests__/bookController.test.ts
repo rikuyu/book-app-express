@@ -2,7 +2,7 @@ import { describe, expect, it, vi } from "vitest";
 import { NextFunction, Request, Response } from "express";
 import { createBook, deleteBook, getBookById, getBooks } from "../bookController";
 import * as service from "../../../domain/service/bookService";
-import { IBook } from "../../../domain/model/book";
+import { BookData, IBook } from '../../../domain/model/book';
 import { BookRequest } from "../../types/request";
 
 describe("bookController Test", () => {
@@ -12,12 +12,12 @@ describe("bookController Test", () => {
         const res = { status: statusMock } as unknown as Response;
 
         it("success with 200 & books", async () => {
-            const mockBooks: Partial<IBook>[] = [
+            const mockBooks: Partial<BookData>[] = [
                 { title: "Book 1", status: "available" },
                 { title: "Book 2", status: "borrowed" },
             ];
 
-            vi.spyOn(service, "getBooks").mockResolvedValue(mockBooks as IBook[]);
+            vi.spyOn(service, "getBookData").mockResolvedValue(mockBooks as BookData[]);
 
             await getBooks({} as Request, res, vi.fn());
 
@@ -27,7 +27,7 @@ describe("bookController Test", () => {
 
         it("fail with error", async () => {
             const error = new Error("Internal Server Error");
-            vi.spyOn(service, "getBooks").mockRejectedValue(error);
+            vi.spyOn(service, "getBookData").mockRejectedValue(error);
 
             const next = vi.fn() as NextFunction;
             await getBooks({} as Request, res, next);
