@@ -15,6 +15,10 @@ import {verifyJwt} from "./presentation/middleware/verifyJwt";
 export const app = express();
 export const port = 8080;
 
+app.get("/ping", (_: Request, res: Response) => {
+    res.send("ok\n");
+});
+
 dotenv.config();
 
 app.use(requestLogger);
@@ -54,7 +58,3 @@ async function start() {
 }
 
 start().catch(console.error);
-
-app.get("/ping", (_: Request, res: Response) => {
-    res.send("ok\n");
-});

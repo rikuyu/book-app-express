@@ -3,7 +3,7 @@ import {useState} from "react";
 import {BASE_URL} from "../utils/Constants.ts";
 
 function Login() {
-    const [email, setEmail] = useState("ruffy@example.com");
+    const [email, setEmail] = useState("alice@example.com");
     const [password, setPassword] = useState("test");
     const navigate = useNavigate();
 

@@ -52,7 +52,6 @@ export interface BorrowBookRequest extends Request {
 
 export interface ReturnBookRequest extends Request {
     body: {
-        userId: string
         bookId: string
     };
 }

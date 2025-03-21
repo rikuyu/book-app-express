@@ -111,7 +111,7 @@ function ResetPassword() {
                     </div>
                     <div className="mb-5">
                         <input
-                            type="password"
+                            type="text"
                             placeholder="新しいパスワード"
                             value={newPassword}
                             onChange={(e) => setNewPassword(e.target.value)}

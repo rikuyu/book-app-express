@@ -80,6 +80,10 @@ userSchema.methods.generateResetPasswordToken = function (): string {
     return resetToken;
 };
 
+userSchema.post("save", () => {
+    console.log("🙂 A new user has been saved.");
+});
+
 userSchema.post("findOneAndDelete", () => {
     console.log("🙂 the user has been deleted.");
 });

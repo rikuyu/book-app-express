@@ -140,7 +140,7 @@ describe("borrowRecordController Test", () => {
         const jsonMock = vi.fn();
         const statusMock = vi.fn().mockReturnValue({json: jsonMock});
 
-        const req = {body: {borrowRecordId: "1", bookId: "1"}} as ReturnBookRequest;
+        const req = {body: {bookId: "1"}} as ReturnBookRequest;
         const res = {status: statusMock} as unknown as Response;
 
         it("success with 204", async () => {
