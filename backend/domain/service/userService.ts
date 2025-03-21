@@ -1,5 +1,5 @@
-import User, {IUser} from "../model/user";
-import {NotFoundError} from "../../shared/error/notFoundError";
+import User, { IUser } from "../model/user";
+import { NotFoundError } from "../../shared/error/notFoundError";
 
 export const getMe = async (id: string): Promise<IUser> => {
     const me = await User.findById(id);
@@ -20,7 +20,7 @@ export const getUserById = async (id: string): Promise<IUser> => {
 };
 
 export const getUserByEmail = async (email: string): Promise<IUser> => {
-    const user = await User.findOne({email});
+    const user = await User.findOne({ email });
     if (!user) {
         throw new NotFoundError(`No user found with the given email: ${email}`);
     }
@@ -28,7 +28,7 @@ export const getUserByEmail = async (email: string): Promise<IUser> => {
 };
 
 export const deleteUser = async (id: string): Promise<IUser> => {
-    const user = await User.findOneAndDelete({_id: id}).exec();
+    const user = await User.findOneAndDelete({ _id: id }).exec();
     if (user == null) {
         throw new NotFoundError(`No user found with the given id: ${id}`);
     }

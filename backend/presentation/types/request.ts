@@ -1,57 +1,57 @@
-import {Request} from "express";
+import { Request } from "express";
 
 export interface BookRequest extends Request {
     body: {
-        title: string
+        title: string;
     };
 }
 
 export interface SearchBookRequest extends Request {
     query: {
-        keyword: string
+        keyword: string;
     };
 }
 
 export interface RegisterRequest extends Request {
     body: {
-        name: string
-        email: string
-        password: string
+        name: string;
+        email: string;
+        password: string;
     };
 }
 
 export interface LoginRequest extends Request {
     body: {
-        email: string
-        password: string
+        email: string;
+        password: string;
     };
 }
 
 export interface ForgotPasswordRequest extends Request {
     body: {
-        email: string
-        subject: string
-        text: string
+        email: string;
+        subject: string;
+        text: string;
     };
 }
 
 export interface ResetPasswordRequest extends Request {
     params: {
-        token: string
+        token: string;
     };
     body: {
-        newPassword: string
+        newPassword: string;
     };
 }
 
 export interface BorrowBookRequest extends Request {
     body: {
-        bookId: string
+        bookId: string;
     };
 }
 
 export interface ReturnBookRequest extends Request {
     body: {
-        bookId: string
+        bookId: string;
     };
 }

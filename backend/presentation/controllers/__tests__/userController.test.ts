@@ -1,20 +1,19 @@
-import {describe, expect, it, vi} from "vitest";
-import {NextFunction, Request, Response} from "express";
-import {getUsers, getUserById, deleteUser} from "../userController";
+import { describe, expect, it, vi } from "vitest";
+import { NextFunction, Request, Response } from "express";
+import { getUsers, getUserById, deleteUser } from "../userController";
 import * as service from "../../../domain/service/userService";
 import { IUser } from "../../../domain/model/user";
 
 describe("userController Test", () => {
     describe("getUsers", () => {
-
         const jsonMock = vi.fn();
-        const statusMock = vi.fn().mockReturnValue({json: jsonMock});
-        const res = {status: statusMock} as unknown as Response;
+        const statusMock = vi.fn().mockReturnValue({ json: jsonMock });
+        const res = { status: statusMock } as unknown as Response;
 
         it("success with 200 & users", async () => {
             const mockUsers: Partial<IUser>[] = [
-                {name: "user1", email: "user1@example.com" },
-                {name: "user2", email: "user2@example.com" },
+                { name: "user1", email: "user1@example.com" },
+                { name: "user2", email: "user2@example.com" },
             ];
 
             vi.spyOn(service, "getUsers").mockResolvedValue(mockUsers as IUser[]);
@@ -38,13 +37,16 @@ describe("userController Test", () => {
 
     describe("getUserById", () => {
         const jsonMock = vi.fn();
-        const statusMock = vi.fn().mockReturnValue({json: jsonMock});
-        
-        const req = {params: {id: "1"}} as Request<{id: string}>;
-        const res = {status: statusMock} as unknown as Response;
+        const statusMock = vi.fn().mockReturnValue({ json: jsonMock });
+
+        const req = { params: { id: "1" } } as Request<{ id: string }>;
+        const res = { status: statusMock } as unknown as Response;
 
         it("success with 200 & users", async () => {
-            const mockUser: Partial<IUser> = {name: "user1", email: "user1@example.com" };
+            const mockUser: Partial<IUser> = {
+                name: "user1",
+                email: "user1@example.com",
+            };
 
             vi.spyOn(service, "getUserById").mockResolvedValue(mockUser as IUser);
 
@@ -67,13 +69,16 @@ describe("userController Test", () => {
 
     describe("deleteUser", () => {
         const jsonMock = vi.fn();
-        const statusMock = vi.fn().mockReturnValue({json: jsonMock});
-        
-        const req = {params: {id: "1"}} as Request<{id: string}>;
-        const res = {status: statusMock} as unknown as Response;
+        const statusMock = vi.fn().mockReturnValue({ json: jsonMock });
+
+        const req = { params: { id: "1" } } as Request<{ id: string }>;
+        const res = { status: statusMock } as unknown as Response;
 
         it("success with 200 & users", async () => {
-            const mockUser: Partial<IUser> = {name: "user1", email: "user1@example.com" };
+            const mockUser: Partial<IUser> = {
+                name: "user1",
+                email: "user1@example.com",
+            };
 
             vi.spyOn(service, "deleteUser").mockResolvedValue(mockUser as IUser);
 

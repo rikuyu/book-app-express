@@ -1,5 +1,12 @@
 import express from "express";
-import {register, login, logout, resetPassword, sendEmail, forgotPassword} from "../controllers/authController";
+import {
+    register,
+    login,
+    logout,
+    resetPassword,
+    sendEmail,
+    forgotPassword,
+} from "../controllers/authController";
 
 export const authRouter = express.Router();
 

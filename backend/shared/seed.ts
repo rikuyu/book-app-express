@@ -30,29 +30,79 @@ const createId = (suffix: string): mongoose.Types.ObjectId => {
 };
 
 const users = [
-    {_id: createId("1"), name: "Alice Johnson", email: "alice@example.com", password: "test"},
-    {_id: createId("2"), name: "Bob Smith", email: "bob@example.com", password: "test"},
-    {_id: createId("3"), name: "綾瀬あみ", email: "ayase@example.com", password: "test"},
-    {_id: createId("4"), name: "David Miller", email: "david@example.com", password: "test"},
-    {_id: createId("5"), name: "高倉健", email: "takakura@example.com", password: "test"},
-    {_id: createId("6"), name: "Frank Wilson", email: "frank@example.com", password: "test"},
-    {_id: createId("7"), name: "Grace Taylor", email: "grace@example.com", password: "test"},
-    {_id: createId("8"), name: "山田 太郎", email: "taro.yamada@example.com", password: "test"},
-    {_id: createId("9"), name: "佐藤 花子", email: "hanako.sato@example.com", password: "test"},
-    {_id: createId("10"), name: "高橋 光", email: "hikari.takahashi@example.com", password: "test"},
+    {
+        _id: createId("1"),
+        name: "Alice Johnson",
+        email: "alice@example.com",
+        password: "test",
+    },
+    {
+        _id: createId("2"),
+        name: "Bob Smith",
+        email: "bobsmith@example.com",
+        password: "test"
+    },
+    {
+        _id: createId("3"),
+        name: "綾瀬あみ",
+        email: "ayase@example.com",
+        password: "test",
+    },
+    {
+        _id: createId("4"),
+        name: "David Miller",
+        email: "david@example.com",
+        password: "test",
+    },
+    {
+        _id: createId("5"),
+        name: "高倉健",
+        email: "takakura@example.com",
+        password: "test",
+    },
+    {
+        _id: createId("6"),
+        name: "Frank Wilson",
+        email: "frank@example.com",
+        password: "test",
+    },
+    {
+        _id: createId("7"),
+        name: "Grace Taylor",
+        email: "grace@example.com",
+        password: "test",
+    },
+    {
+        _id: createId("8"),
+        name: "山田 太郎",
+        email: "taro.yamada@example.com",
+        password: "test",
+    },
+    {
+        _id: createId("9"),
+        name: "佐藤 花子",
+        email: "hanako.sato@example.com",
+        password: "test",
+    },
+    {
+        _id: createId("10"),
+        name: "高橋 光",
+        email: "hikari.takahashi@example.com",
+        password: "test",
+    },
 ];
 
 const books = [
-    {_id: createId("1"), title: "吾輩は猫である", status: "available"},
-    {_id: createId("2"), title: "インターネットの基礎知識", status: "available"},
-    {_id: createId("3"), title: "雪国の記憶", status: "borrowed"},
-    {_id: createId("4"), title: "ノルウェイの森", status: "borrowed"},
-    {_id: createId("5"), title: "そして誰もいなくなった", status: "available"},
-    {_id: createId("6"), title: "JavaScript入門", status: "available"},
-    {_id: createId("7"), title: "風の歌を聴け", status: "available"},
-    {_id: createId("8"), title: "森田博士の愛した数式", status: "available"},
-    {_id: createId("9"), title: "Java & Spring Boot の徹底解説", status: "available"},
-    {_id: createId("10"), title: "インターネットの歴史", status: "borrowed"},
+    { _id: createId("1"), title: "吾輩は猫である", status: "available" },
+    { _id: createId("2"), title: "インターネットの基礎知識", status: "available" },
+    { _id: createId("3"), title: "雪国の記憶", status: "borrowed" },
+    { _id: createId("4"), title: "ノルウェイの森", status: "borrowed" },
+    { _id: createId("5"), title: "そして誰もいなくなった", status: "available" },
+    { _id: createId("6"), title: "JavaScript入門", status: "available" },
+    { _id: createId("7"), title: "風の歌を聴け", status: "available" },
+    { _id: createId("8"), title: "森田博士の愛した数式", status: "available" },
+    { _id: createId("9"), title: "Java & Spring Boot の徹底解説", status: "available" },
+    { _id: createId("10"), title: "インターネットの歴史", status: "borrowed" },
 ];
 
 const borrowRecords = [

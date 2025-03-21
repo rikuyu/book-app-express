@@ -1,21 +1,20 @@
-import {describe, expect, it, vi} from "vitest";
-import {NextFunction, Request, Response} from "express";
-import {createBook, deleteBook, getBookById, getBooks} from "../bookController";
+import { describe, expect, it, vi } from "vitest";
+import { NextFunction, Request, Response } from "express";
+import { createBook, deleteBook, getBookById, getBooks } from "../bookController";
 import * as service from "../../../domain/service/bookService";
-import {IBook} from "../../../domain/model/book";
-import {BookRequest} from "../../types/request";
+import { IBook } from "../../../domain/model/book";
+import { BookRequest } from "../../types/request";
 
 describe("bookController Test", () => {
     describe("getBooks", () => {
-
         const jsonMock = vi.fn();
-        const statusMock = vi.fn().mockReturnValue({json: jsonMock});
-        const res = {status: statusMock} as unknown as Response;
+        const statusMock = vi.fn().mockReturnValue({ json: jsonMock });
+        const res = { status: statusMock } as unknown as Response;
 
         it("success with 200 & books", async () => {
             const mockBooks: Partial<IBook>[] = [
-                {title: "Book 1", status: "available"},
-                {title: "Book 2", status: "borrowed"},
+                { title: "Book 1", status: "available" },
+                { title: "Book 2", status: "borrowed" },
             ];
 
             vi.spyOn(service, "getBooks").mockResolvedValue(mockBooks as IBook[]);
@@ -38,15 +37,14 @@ describe("bookController Test", () => {
     });
 
     describe("getBookById", () => {
-
         const jsonMock = vi.fn();
-        const statusMock = vi.fn().mockReturnValue({json: jsonMock});
+        const statusMock = vi.fn().mockReturnValue({ json: jsonMock });
 
-        const req = {params: {id: "1"}} as Request<{ id: string }>;
-        const res = {status: statusMock} as unknown as Response;
+        const req = { params: { id: "1" } } as Request<{ id: string }>;
+        const res = { status: statusMock } as unknown as Response;
 
         it("success with 200 & a book", async () => {
-            const mockBook: Partial<IBook> = {title: "Book 1", status: "available"};
+            const mockBook: Partial<IBook> = { title: "Book 1", status: "available" };
 
             vi.spyOn(service, "getBookById").mockResolvedValue(mockBook as IBook);
 
@@ -68,16 +66,15 @@ describe("bookController Test", () => {
     });
 
     describe("createBook", () => {
-
         const bookTitle = "TestBook";
         const jsonMock = vi.fn();
-        const statusMock = vi.fn().mockReturnValue({json: jsonMock});
+        const statusMock = vi.fn().mockReturnValue({ json: jsonMock });
 
-        const req = {body: { title: bookTitle }} as BookRequest;
-        const res = {status: statusMock} as unknown as Response;
+        const req = { body: { title: bookTitle } } as BookRequest;
+        const res = { status: statusMock } as unknown as Response;
 
         it("success with 201", async () => {
-            const mockBook: Partial<IBook> = {title: bookTitle, status: "available"};
+            const mockBook: Partial<IBook> = { title: bookTitle, status: "available" };
 
             vi.spyOn(service, "createBook").mockResolvedValue(mockBook as IBook);
 
@@ -99,15 +96,14 @@ describe("bookController Test", () => {
     });
 
     describe("deleteBook", () => {
-
         const jsonMock = vi.fn();
-        const statusMock = vi.fn().mockReturnValue({json: jsonMock});
+        const statusMock = vi.fn().mockReturnValue({ json: jsonMock });
 
-        const req = {params: {id: "1"}} as Request<{ id: string }>;
-        const res = {status: statusMock} as unknown as Response;
+        const req = { params: { id: "1" } } as Request<{ id: string }>;
+        const res = { status: statusMock } as unknown as Response;
 
         it("success with 200", async () => {
-            const mockBook: Partial<IBook> = {title: "Book 1", status: "available"};
+            const mockBook: Partial<IBook> = { title: "Book 1", status: "available" };
 
             vi.spyOn(service, "deleteBook").mockResolvedValue(mockBook as IBook);
 

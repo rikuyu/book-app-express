@@ -1,8 +1,8 @@
-import mongoose, {Schema} from "mongoose";
-import bcrypt, {genSalt} from "bcryptjs";
+import mongoose, { Schema } from "mongoose";
+import bcrypt, { genSalt } from "bcryptjs";
 import crypto from "crypto";
 import jwt from "jsonwebtoken";
-import {NextFunction} from "express";
+import { NextFunction } from "express";
 
 export interface IUser extends Document {
     name: string;
@@ -33,7 +33,7 @@ const userSchema = new Schema<IUser>({
                 const pattern = /^([\w-.]+@([\w-]+\.)+[\w-]{2,4})?$/;
                 return pattern.test(v);
             },
-            message: (props: { value: string; }) => `${props.value} is not a valid email.`,
+            message: (props: { value: string }) => `${props.value} is not a valid email.`,
         },
     },
     password: {
@@ -41,11 +41,12 @@ const userSchema = new Schema<IUser>({
         minlength: 3,
         required: true,
     },
-    resetPasswordToken: {type: String},
-    resetPasswordExpire: {type: Date},
+    resetPasswordToken: { type: String },
+    resetPasswordExpire: { type: Date },
     role: {
         type: String,
-        enum: ["admin", "user"], default: "user",
+        enum: ["admin", "user"],
+        default: "user",
     },
 });
 
@@ -62,11 +63,7 @@ userSchema.methods.matchPassword = async function (password: string): Promise<bo
 };
 
 userSchema.methods.getJsonWebToken = function (): string {
-    return jwt.sign(
-        {id: this._id},
-        process.env.JWT_SECRET_KEY,
-        {expiresIn: "1h"},
-    );
+    return jwt.sign({ id: this._id }, process.env.JWT_SECRET_KEY, { expiresIn: "1h" });
 };
 
 userSchema.methods.generateResetPasswordToken = function (): string {

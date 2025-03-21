@@ -1,16 +1,16 @@
 import express from "express";
 import cors from "cors";
-import {Request, Response} from "express";
-import {connectToDatabase} from "./infra/database/db";
-import {authRouter} from "./presentation/routes/authRouter";
-import {bookRouter} from "./presentation/routes/bookRouter";
-import {userRouter} from "./presentation/routes/userRouter";
-import {borrowRecordRouter} from "./presentation/routes/borrowRecordRouter";
+import { Request, Response } from "express";
+import { connectToDatabase } from "./infra/database/db";
+import { authRouter } from "./presentation/routes/authRouter";
+import { bookRouter } from "./presentation/routes/bookRouter";
+import { userRouter } from "./presentation/routes/userRouter";
+import { borrowRecordRouter } from "./presentation/routes/borrowRecordRouter";
 import errorHandler from "./presentation/middleware/errorHandler";
 import requestLogger from "./presentation/middleware/requestLogger";
 import cookieParser from "cookie-parser";
 import dotenv from "dotenv";
-import {verifyJwt} from "./presentation/middleware/verifyJwt";
+import { verifyJwt } from "./presentation/middleware/verifyJwt";
 
 export const app = express();
 export const port = 8080;
@@ -32,7 +32,7 @@ const corsOption = {
     maxAge: 86400,
     preflightContinue: false,
     optionsSuccessStatus: 204,
-}
+};
 app.use(cors(corsOption));
 
 app.use(express.json());

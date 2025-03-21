@@ -1,9 +1,9 @@
-import nodemailer, {TransportOptions} from "nodemailer";
+import nodemailer, { TransportOptions } from "nodemailer";
 
 export const sendEmail = async (
     email: string,
     subject: string,
-    text: string,
+    text: string
 ): Promise<void> => {
     const transporter = nodemailer.createTransport({
         host: process.env.SMTP_HOST,
