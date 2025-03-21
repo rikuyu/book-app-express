@@ -6,6 +6,13 @@ export interface IBook extends Document {
     status: "available" | "borrowed";
 }
 
+export interface BookData {
+    _id: string;
+    title: string;
+    status: "available" | "borrowed";
+    isBorrowedByMe: boolean;
+}
+
 const bookSchema = new Schema<IBook>({
     title: {
         type: String,

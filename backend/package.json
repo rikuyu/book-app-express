@@ -5,7 +5,8 @@
   "scripts": {
     "start": "ts-node-dev --respawn app.ts",
     "test": "vitest --ui",
-    "lint": "npx eslint . --ext .ts"
+    "lint": "npx eslint . --ext .ts",
+    "seed": "ts-node ./shared/seed.ts"
   },
   "author": "",
   "license": "ISC",

@@ -9,6 +9,7 @@ export type Book = {
     _id: number;
     title: string;
     status: "available" | "borrowed";
+    isBorrowedByMe: boolean;
 };
 
 const BookTable: React.FC = () => {
@@ -32,7 +33,10 @@ const BookTable: React.FC = () => {
                 }
                 return res.json();
             })
-            .then((data: Book[]) => setBooks(data))
+            .then((data: Book[]) => {
+                const sorted = data.sort((a, b) => a._id.toString().localeCompare(b._id.toString()));
+                setBooks(sorted);
+            })
             .catch((error) => {
                 console.error("Error fetching books:", error);
             });
@@ -144,13 +148,13 @@ const BookTable: React.FC = () => {
                         <th className="border border-gray-300 px-0 py-3">ID</th>
                         <th className="border border-gray-300 px-4 py-3">タイトル</th>
                         <th className="border border-gray-300 px-4 py-3">状態</th>
-                        <th className="border border-gray-300 px-4 py-3">貸出</th>
+                        <th className="border border-gray-300 px-4 py-3">貸出／返却</th>
                     </tr>
                     </thead>
                     <tbody>
                     {books.map((book) => (
                         <tr key={book._id}>
-                            <td className="border border-gray-300 px-0 py-2 text-center">{book._id}</td>
+                            <td className="border border-gray-300 px-1 py-2 text-center">{book._id.toString().replace(/^0+/, '')}</td>
                             <td className="border border-gray-300 px-4 py-2 text-center">
                                 <span
                                     className="font-medium hover:underline cursor-pointer"
@@ -160,7 +164,8 @@ const BookTable: React.FC = () => {
                                 </span>
                             </td>
                             <td className="border border-gray-300 px-4 py-2 text-center">
-                              <span className={`font-bold ${book.status === "available" ? "text-green-600" : "text-red-600"}`}>
+                              <span
+                                  className={`font-bold ${book.status === "available" ? "text-green-600" : "text-red-600"}`}>
                                     {book.status === "available" ? "利用可能" : "貸出中"}
                               </span>
                             </td>
@@ -169,15 +174,18 @@ const BookTable: React.FC = () => {
                                     className={`px-4 py-2 rounded text-white ${
                                         book.status === "available"
                                             ? "bg-blue-500 hover:bg-blue-600"
-                                            : "bg-red-500 hover:bg-red-600"
+                                            : book.isBorrowedByMe
+                                                ? "bg-red-500 hover:bg-red-600"
+                                                : "bg-gray-400 cursor-not-allowed"
                                     }`}
                                     onClick={() =>
                                         book.status === "available"
                                             ? handleBorrowBook(book._id)
                                             : handleReturnBook(book._id)
                                     }
+                                    disabled={book.status !== "available" && !book.isBorrowedByMe}
                                 >
-                                    {book.status === "available" ? "貸出" : "返却"}
+                                    {book.status === "available" ? "貸出" : book.isBorrowedByMe ? "返却" : "貸出"}
                                 </button>
                             </td>
                         </tr>

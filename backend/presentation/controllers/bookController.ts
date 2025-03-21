@@ -3,8 +3,8 @@ import * as service from "../../domain/service/bookService";
 import {BookRequest, SearchBookRequest} from "../types/request";
 import {asyncHandler} from "../../shared/error/asyncHandler";
 
-const getBooks = asyncHandler(async (_req: Request, res: Response): Promise<void> => {
-    const books = await service.getBooks();
+const getBooks = asyncHandler(async (req: Request, res: Response): Promise<void> => {
+    const books = await service.getBookData(req.userId);
     res.status(200).json(books);
 });
 

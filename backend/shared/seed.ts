@@ -44,14 +44,14 @@ const users = [
 
 const books = [
     {_id: createId("1"), title: "吾輩は猫である", status: "available"},
-    {_id: createId("2"), title: "こころのかたち", status: "available"},
+    {_id: createId("2"), title: "インターネットの基礎知識", status: "available"},
     {_id: createId("3"), title: "雪国の記憶", status: "borrowed"},
     {_id: createId("4"), title: "ノルウェイの森", status: "borrowed"},
-    {_id: createId("5"), title: "そして誰もいなくなった", status: "borrowed"},
+    {_id: createId("5"), title: "そして誰もいなくなった", status: "available"},
     {_id: createId("6"), title: "JavaScript入門", status: "available"},
     {_id: createId("7"), title: "風の歌を聴け", status: "available"},
-    {_id: createId("8"), title: "博士の愛した数式", status: "available"},
-    {_id: createId("9"), title: "java & Spring Boot の徹底解説", status: "available"},
+    {_id: createId("8"), title: "森田博士の愛した数式", status: "available"},
+    {_id: createId("9"), title: "Java & Spring Boot の徹底解説", status: "available"},
     {_id: createId("10"), title: "インターネットの歴史", status: "borrowed"},
 ];
 
@@ -137,12 +137,6 @@ const borrowRecords = [
     {
         user_id: createId("9"),
         book_id: createId("4"),
-        borrowed_date: new Date("2025-03-18T15:13:56.052+00:00"),
-        returned_date: null,
-    },
-    {
-        user_id: createId("10"),
-        book_id: createId("5"),
         borrowed_date: new Date("2025-03-18T15:13:56.052+00:00"),
         returned_date: null,
     },
