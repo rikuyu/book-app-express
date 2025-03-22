@@ -1,6 +1,7 @@
-import { Request, Response } from "express";
-import * as service from "../../domain/service/userService";
-import { asyncHandler } from "../../shared/error/asyncHandler";
+import { Request, Response } from 'express';
+import * as service from '../../domain/service/userService';
+import { asyncHandler } from '../../shared/error/asyncHandler';
+import { BadRequestError } from '../../shared/error/badRequestError';
 
 const getMe = asyncHandler(async (req: Request, res: Response): Promise<void> => {
     const me = await service.getMe(req.userId);
@@ -24,4 +25,11 @@ const deleteUser = asyncHandler(async (req: Request<{ id: string }>, res: Respon
     res.status(200).json(user);
 });
 
-export { getUsers, getUserById, deleteUser, getMe };
+const uploadProfileImage = asyncHandler(async (req: Request, res: Response) => {
+    if (!req.file) {
+        throw new BadRequestError("No file was uploaded");
+    }
+    res.status(200).json({ message: "upload successfully" });
+});
+
+export { getUsers, getUserById, deleteUser, getMe, uploadProfileImage };
