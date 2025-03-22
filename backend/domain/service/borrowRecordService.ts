@@ -31,7 +31,7 @@ export const borrowBook = async (userId: string, bookId: string): Promise<void> 
         throw new BadRequestError("book id undefined");
     }
     if (!userId) {
-        throw new BadRequestError("user id id undefined");
+        throw new BadRequestError("user id undefined");
     }
     const session = await mongoose.startSession();
     session.startTransaction();
@@ -70,6 +70,12 @@ export const borrowBook = async (userId: string, bookId: string): Promise<void> 
 };
 
 export const returnBook = async (userId: string, bookId: string): Promise<void> => {
+    if (!bookId) {
+        throw new BadRequestError("book id undefined");
+    }
+    if (!userId) {
+        throw new BadRequestError("user id undefined");
+    }
     const session = await mongoose.startSession();
     session.startTransaction();
 
