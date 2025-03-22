@@ -2,7 +2,7 @@ import { describe, expect, it, vi } from "vitest";
 import { NextFunction, Request, Response } from "express";
 import { createBook, deleteBook, getBookById, getBooks } from "../bookController";
 import * as service from "../../../domain/service/bookService";
-import { BookData, IBook } from '../../../domain/model/book';
+import { BookData, IBook } from "../../../domain/model/book";
 import { BookRequest } from "../../types/request";
 
 describe("bookController Test", () => {

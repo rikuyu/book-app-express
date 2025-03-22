@@ -40,7 +40,7 @@ const users = [
         _id: createId("2"),
         name: "Bob Smith",
         email: "bobsmith@example.com",
-        password: "test"
+        password: "test",
     },
     {
         _id: createId("3"),
