@@ -110,7 +110,7 @@ const BookSearch: React.FC = () => {
                     <tbody>
                     {books.map((book) => (
                         <tr key={book._id}>
-                            <td className="border border-gray-300 px-0 py-2 text-center">{book._id}</td>
+                            <td className="border border-gray-300 px-0 py-2 text-center">{book._id.toString().replace(/^0+/, '')}</td>
                             <td className="border border-gray-300 px-4 py-2 text-center">{book.title}</td>
                             <td className="border border-gray-300 px-4 py-2 text-center">
                               <span

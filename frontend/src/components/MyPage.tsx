@@ -65,7 +65,7 @@ function MyPage() {
 
     const uploadImage = (file: File) => {
         const formData = new FormData();
-        formData.append("file", file);
+        formData.append("avatar", file);
 
         fetch("http://localhost:8080/users/image", {
             method: "POST",
@@ -193,7 +193,7 @@ function MyPage() {
                     </div>
                     <div className="mb-8 border-b pb-1 border-black">
                         <span className="font-medium text-gray-700 text-xl">id:</span>
-                        <span className="ml-2 text-xl">{userData.id}</span>
+                        <span className="ml-2 text-xl">{userData.id.toString().replace(/^0+/, '')}</span>
                     </div>
                     <div className="mb-8 border-b pb-1 border-black">
                         <span className="font-medium text-gray-700 text-xl">ユーザー名:</span>
