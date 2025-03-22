@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 
+// prettier-ignore
 export const asyncHandler = (
   fn: (
     req: Request,
