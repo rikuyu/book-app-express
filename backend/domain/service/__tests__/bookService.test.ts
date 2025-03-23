@@ -1,9 +1,10 @@
-import { describe, expect, it, vi } from "vitest";
-import * as service from "../bookService";
-import Book, { IBook } from "../../model/book";
-import BorrowRecord from "../../model/borrowRecord";
-import { NotFoundError } from "../../../shared/error/notFoundError";
-import { InternalServerError } from "../../../shared/error/internalServerError";
+import { describe, expect, it, vi } from 'vitest';
+import * as service from '../bookService';
+import Book, { IBook } from '../../model/book';
+import BorrowRecord from '../../model/borrowRecord';
+import { NotFoundError } from '../../../shared/error/notFoundError';
+import { InternalServerError } from '../../../shared/error/internalServerError';
+import { Types } from 'mongoose';
 
 describe("bookService Test", () => {
     const mockBook1: Partial<IBook> = { title: "testBook1", status: "available" };
@@ -74,11 +75,13 @@ describe("bookService Test", () => {
 
     describe("createBook", () => {
         it("success", async () => {
-            const newBook: Partial<IBook> = {
-                title: "new book",
-                status: "available",
-            };
-            vi.spyOn(Book, "create").mockResolvedValue(newBook as any);
+            const newBook: Awaited<ReturnType<typeof Book.create>> = {
+                _id: new Types.ObjectId(),
+                title: 'new book',
+                status: 'available',
+            } as unknown as Awaited<ReturnType<typeof Book.create>>;
+
+            vi.spyOn(Book, "create").mockResolvedValue(newBook);
             const result = await service.createBook({ title: "new book" });
             expect(result.title).toBe("new book");
             expect(result.status).toBe("available");
@@ -96,9 +99,7 @@ describe("bookService Test", () => {
         it("success", async () => {
             const execMock = vi.fn().mockResolvedValue(mockBook1);
             const findOneAndDeleteMock = vi.fn().mockReturnValue({ exec: execMock });
-            vi.spyOn(Book, "findOneAndDelete").mockImplementation(
-                findOneAndDeleteMock as any
-            );
+            vi.spyOn(Book, "findOneAndDelete").mockImplementation(findOneAndDeleteMock);
 
             const result = await service.deleteBook("id");
             expect(result.title).toBe(mockBook1.title);
@@ -107,9 +108,7 @@ describe("bookService Test", () => {
         it("fail with NotFoundError", async () => {
             const execMock = vi.fn().mockResolvedValue(null);
             const findOneAndDeleteMock = vi.fn().mockReturnValue({ exec: execMock });
-            vi.spyOn(Book, "findOneAndDelete").mockImplementation(
-                findOneAndDeleteMock as any
-            );
+            vi.spyOn(Book, "findOneAndDelete").mockImplementation(findOneAndDeleteMock);
 
             await expect(service.deleteBook("id")).rejects.toThrow(NotFoundError);
         });
