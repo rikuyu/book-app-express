@@ -5,7 +5,7 @@ import {MdGroup} from "react-icons/md";
 import {BASE_URL} from "../utils/Constants.ts";
 
 type User = {
-    id: number;
+    _id: number;
     name: string;
     email: string;
     role: 'user' | 'admin';
@@ -80,8 +80,8 @@ const UserTable: React.FC = () => {
                     </thead>
                     <tbody>
                     {users.map((user) => (
-                        <tr key={user.id}>
-                            <td className="border border-gray-300 px-2 py-3 text-center">{user.id}</td>
+                        <tr key={user._id}>
+                            <td className="border border-gray-300 px-2 py-3 text-center">{user._id.toString().replace(/^0+/, '')}</td>
                             <td className="border border-gray-300 px-4 py-3 text-center">{user.name}</td>
                             <td className="border border-gray-300 px-4 py-3 text-center">{user.email}</td>
                             <td className="border border-gray-300 px-4 py-3 text-center">

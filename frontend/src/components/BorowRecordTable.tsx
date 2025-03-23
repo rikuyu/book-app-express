@@ -5,7 +5,7 @@ import {MdHistory} from "react-icons/md";
 import {BASE_URL} from "../utils/Constants.ts";
 
 type BorrowRecord = {
-    id: number;
+    _id: string;
     user_id: number;
     book_id: number;
     borrowed_date: string;
@@ -86,7 +86,7 @@ const BorrowRecordTable = () => {
                 <table className="table-auto border-collapse border border-gray-800 w-full">
                     <thead>
                     <tr className="bg-gray-200">
-                        <th className="border border-gray-300 px-2 py-3">id</th>
+                        <th className="border border-gray-300 px-2 py-3">貸出 id</th>
                         <th className="border border-gray-300 px-2 py-3">user id</th>
                         <th className="border border-gray-300 px-2 py-3">book id</th>
                         <th className="border border-gray-300 px-4 py-3">貸出日</th>
@@ -95,10 +95,10 @@ const BorrowRecordTable = () => {
                     </thead>
                     <tbody>
                     {records.map((record) => (
-                        <tr key={record.id}>
-                            <td className="border border-gray-300 px-2 py-2 text-center">{record.id}</td>
-                            <td className="border border-gray-300 px-4 py-2 text-center">{record.user_id}</td>
-                            <td className="border border-gray-300 px-4 py-2 text-center">{record.book_id}</td>
+                        <tr key={record._id}>
+                            <td className="border border-gray-300 px-2 py-2 text-center">{record._id}</td>
+                            <td className="border border-gray-300 px-4 py-2 text-center">{record.user_id.toString().replace(/^0+/, '')}</td>
+                            <td className="border border-gray-300 px-4 py-2 text-center">{record.book_id.toString().replace(/^0+/, '')}</td>
                             <td className="border border-gray-300 px-4 py-2 text-center">{formatDate(record.borrowed_date)}</td>
                             <td className="border border-gray-300 px-4 py-2 text-center">
                                 {record.returned_date ? (

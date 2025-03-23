@@ -1,10 +1,10 @@
-import { describe, expect, it, vi } from 'vitest';
-import * as service from '../bookService';
-import Book, { IBook } from '../../model/book';
-import BorrowRecord from '../../model/borrowRecord';
-import { NotFoundError } from '../../../shared/error/notFoundError';
-import { InternalServerError } from '../../../shared/error/internalServerError';
-import { Types } from 'mongoose';
+import { describe, expect, it, vi } from "vitest";
+import * as service from "../bookService";
+import Book, { IBook } from "../../model/book";
+import BorrowRecord from "../../model/borrowRecord";
+import { NotFoundError } from "../../../shared/error/notFoundError";
+import { InternalServerError } from "../../../shared/error/internalServerError";
+import { Types } from "mongoose";
 
 describe("bookService Test", () => {
     const mockBook1: Partial<IBook> = { title: "testBook1", status: "available" };
@@ -77,8 +77,8 @@ describe("bookService Test", () => {
         it("success", async () => {
             const newBook: Awaited<ReturnType<typeof Book.create>> = {
                 _id: new Types.ObjectId(),
-                title: 'new book',
-                status: 'available',
+                title: "new book",
+                status: "available",
             } as unknown as Awaited<ReturnType<typeof Book.create>>;
 
             vi.spyOn(Book, "create").mockResolvedValue(newBook);
