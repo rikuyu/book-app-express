@@ -63,7 +63,14 @@ userSchema.methods.matchPassword = async function (password: string): Promise<bo
 };
 
 userSchema.methods.getJsonWebToken = function (): string {
-    return jwt.sign({ id: this._id }, process.env.JWT_SECRET_KEY, { expiresIn: "1h" });
+    return jwt.sign(
+        {
+            id: this._id,
+            role: this.role,
+        },
+        process.env.JWT_SECRET_KEY,
+        { expiresIn: "1h" }
+    );
 };
 
 userSchema.methods.generateResetPasswordToken = function (): string {

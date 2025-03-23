@@ -6,11 +6,13 @@ import {
     borrowBook,
     returnBook,
 } from "../controllers/borrowRecordController";
+import { authAdmin } from "../middleware/authAdmin";
 
 export const borrowRecordRouter = express.Router();
 
-borrowRecordRouter.get("/", getAllBorrowRecords);
-borrowRecordRouter.get("/books", getBorrowRecordsByBook);
-borrowRecordRouter.get("/users", getBorrowRecordsByUser);
 borrowRecordRouter.post("/", borrowBook);
 borrowRecordRouter.put("/return", returnBook);
+
+borrowRecordRouter.get("/", authAdmin, getAllBorrowRecords);
+borrowRecordRouter.get("/users", authAdmin, getBorrowRecordsByUser);
+borrowRecordRouter.get("/books", authAdmin, getBorrowRecordsByBook);

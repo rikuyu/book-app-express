@@ -5,6 +5,7 @@ import jwt, { JwtPayload } from "jsonwebtoken";
 
 interface CustomPayload extends JwtPayload {
     id: string;
+    role: "admin" | "user";
 }
 
 export const verifyJwt = asyncHandler(
@@ -22,7 +23,10 @@ export const verifyJwt = asyncHandler(
                 token,
                 process.env.JWT_SECRET_KEY
             ) as CustomPayload;
+
             req.userId = decoded.id;
+            req.userRole = decoded.role;
+
             next();
         } catch {
             throw new AuthError("Invalid Json Web Token");

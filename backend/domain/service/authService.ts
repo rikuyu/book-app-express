@@ -17,7 +17,7 @@ export const login = async (credentials: {
     email: string;
     password: string;
 }): Promise<IUser> => {
-    const user = await User.findOne({ email: credentials.email }).select("name password");
+    const user = await User.findOne({ email: credentials.email }).select("name password role");
     if (!user) {
         throw new NotFoundError(
             `No user found with the given email: ${credentials.email}`

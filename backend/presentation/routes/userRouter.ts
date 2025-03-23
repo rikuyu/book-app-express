@@ -7,13 +7,13 @@ import {
     getUsers,
     uploadProfileImage,
 } from "../controllers/userController";
+import { authAdmin } from "../middleware/authAdmin";
 
 export const userRouter = express.Router();
 
 userRouter.get("/", getUsers);
 userRouter.get("/me", getMe);
 userRouter.get("/:id", getUserById);
-userRouter.delete("/:id", deleteUser);
 
 const upload = multer({
     dest: "../../uploads/",
@@ -21,3 +21,5 @@ const upload = multer({
 });
 
 userRouter.post("/image", upload.single("avatar"), uploadProfileImage);
+
+userRouter.delete("/:id", authAdmin, deleteUser);

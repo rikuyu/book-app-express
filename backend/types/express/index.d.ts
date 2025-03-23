@@ -3,5 +3,6 @@ import express from "express"; // eslint-disable-line @typescript-eslint/no-unus
 declare module "express" {
     export interface Request {
         userId?: string;
+        userRole?: "admin" | "user";
     }
 }
