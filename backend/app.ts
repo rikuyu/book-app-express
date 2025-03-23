@@ -11,6 +11,7 @@ import requestLogger from "./presentation/middleware/requestLogger";
 import cookieParser from "cookie-parser";
 import dotenv from "dotenv";
 import { verifyJwt } from "./presentation/middleware/verifyJwt";
+import mongoSanitize from "express-mongo-sanitize";
 
 export const app = express();
 export const port = 8080;
@@ -37,6 +38,8 @@ app.use(cors(corsOption));
 
 app.use(express.json());
 app.use(cookieParser());
+
+app.use(mongoSanitize());
 
 app.use("/auth", authRouter);
 
