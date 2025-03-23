@@ -1,11 +1,11 @@
 import User, { IUser } from "../model/user";
 import { NotFoundError } from "../../shared/error/notFoundError";
-import { BadRequestError } from "../../shared/error/badRequestError";
 import * as userService from "./userService";
 import * as emailService from "./emailService";
 import { Document } from "mongoose";
 import crypto from "crypto";
 import { InternalServerError } from "../../shared/error/internalServerError";
+import { AuthError } from "../../shared/error/authError";
 
 export const register = async (user: {
     name: string;
@@ -25,7 +25,7 @@ export const login = async (credentials: {
     }
     const isValid = await user.matchPassword(credentials.password);
     if (!isValid) {
-        throw new BadRequestError(`Invalid password: ${credentials.password}`);
+        throw new AuthError(`Invalid password: ${credentials.password}`);
     }
     return user;
 };

@@ -1,7 +1,7 @@
-import { Request, Response } from 'express';
-import * as service from '../../domain/service/userService';
-import { asyncHandler } from '../../shared/error/asyncHandler';
-import { BadRequestError } from '../../shared/error/badRequestError';
+import { Request, Response } from "express";
+import * as service from "../../domain/service/userService";
+import { asyncHandler } from "../../shared/error/asyncHandler";
+import { BadRequestError } from "../../shared/error/badRequestError";
 
 const getMe = asyncHandler(async (req: Request, res: Response): Promise<void> => {
     const me = await service.getMe(req.userId);
