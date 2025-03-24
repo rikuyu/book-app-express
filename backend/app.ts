@@ -12,6 +12,7 @@ import cookieParser from "cookie-parser";
 import dotenv from "dotenv";
 import { verifyJwt } from "./presentation/middleware/verifyJwt";
 import mongoSanitize from "express-mongo-sanitize";
+import helmet from "helmet";
 
 export const app = express();
 export const port = 8080;
@@ -21,6 +22,8 @@ app.get("/ping", (_: Request, res: Response) => {
 });
 
 dotenv.config();
+
+app.use(helmet());
 
 app.use(requestLogger);
 
