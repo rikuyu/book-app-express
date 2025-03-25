@@ -13,6 +13,7 @@ import dotenv from "dotenv";
 import { verifyJwt } from "./presentation/middleware/verifyJwt";
 import mongoSanitize from "express-mongo-sanitize";
 import helmet from "helmet";
+import { rateLimit } from "express-rate-limit";
 
 export const app = express();
 export const port = 8080;
@@ -22,6 +23,14 @@ app.get("/ping", (_: Request, res: Response) => {
 });
 
 dotenv.config();
+
+const limiter = rateLimit({
+    windowMs: 15 * 60 * 1000,
+    limit: 100,
+    standardHeaders: true,
+    legacyHeaders: false,
+});
+app.use(limiter);
 
 app.use(helmet());
 
@@ -33,7 +42,7 @@ const corsOption = {
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
     exposedHeaders: ["Authorization"],
-    maxAge: 86400,
+    maxAge: 60, // 1 minute
     preflightContinue: false,
     optionsSuccessStatus: 204,
 };
