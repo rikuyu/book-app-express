@@ -13,9 +13,9 @@
 +-------------------+       +---------------------+       +-------------------+
 |       Users       |       |    BorrowRecords    |       |       Books       |
 +-------------------+       +---------------------+       +-------------------+
-| _id: ObjectId     |<-┐    | _id: ObjectId       |  ┌--->| _id: ObjectId     |
-| name: String      |  └----| user_id: ObjectId   |  |    | title: String     |
-| email: String     |       | book_id: ObjectId   |--┘　  | status: Enum      |
+| _id: ObjectId     |<-┐    | _id: ObjectId       |    ┌->| _id: ObjectId     |
+| name: String      |  └----| user_id: ObjectId   |    |  | title: String     |
+| email: String     |       | book_id: ObjectId   |----┘  | status: Enum      |
 | password: String  |       | borrowed_date: Date |       |  - available      |
 | role: Enum        |       | returned_date: Date |       |  - borrowed       |
 |  - admin          |       |                     |       |                   |
