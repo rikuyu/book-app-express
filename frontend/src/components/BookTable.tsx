@@ -1,9 +1,9 @@
-import React, {useEffect, useState} from "react";
-import {IoMenu} from "react-icons/io5";
-import {Link} from "react-router-dom";
-import {MdMenuBook} from "react-icons/md";
-import {useLogout} from "../utils/Logout.ts";
-import {BASE_URL} from "../utils/Constants.ts";
+import React, { useEffect, useState } from "react";
+import { IoMenu } from "react-icons/io5";
+import { Link } from "react-router-dom";
+import { MdMenuBook } from "react-icons/md";
+import { useLogout } from "../utils/Logout.ts";
+import { BASE_URL } from "../utils/Constants.ts";
 
 export type Book = {
     _id: number;
@@ -11,6 +11,12 @@ export type Book = {
     status: "available" | "borrowed";
     isBorrowedByMe: boolean;
 };
+
+const menuItems = [
+    {to: "/popular", label: "人気の書籍"},
+    {to: "/search", label: "書籍の検索"},
+    {to: "/mypage", label: "マイページ"},
+];
 
 const BookTable: React.FC = () => {
     const [menuOpen, setMenuOpen] = useState(false);
@@ -122,18 +128,15 @@ const BookTable: React.FC = () => {
                     {menuOpen && (
                         <div className="absolute right-0 mt-2 w-48 bg-white rounded shadow-lg z-10">
                             <ul className="text-gray-800">
-                                <Link to="/popular">
-                                    <li className="hover:bg-gray-100 px-5 py-4 cursor-pointer">人気の書籍</li>
-                                </Link>
-                                <Link to="/search">
-                                    <li className="hover:bg-gray-100 px-5 py-4 cursor-pointer">書籍の検索</li>
-                                </Link>
-                                <Link to="/mypage">
-                                    <li className="hover:bg-gray-100 px-5 py-4 cursor-pointer">マイページ</li>
-                                </Link>
+                                {menuItems.map(({to, label}) => (
+                                    <Link key={to} to={to}>
+                                        <li className="hover:bg-gray-100 px-5 py-4 cursor-pointer">{label}</li>
+                                    </Link>
+                                ))}
                                 <li
                                     className="hover:bg-gray-100 px-5 py-4 cursor-pointer"
-                                    onClick={logout}>
+                                    onClick={logout}
+                                >
                                     ログアウト
                                 </li>
                             </ul>
@@ -154,7 +157,7 @@ const BookTable: React.FC = () => {
                     <tbody>
                     {books.map((book) => (
                         <tr key={book._id}>
-                            <td className="border border-gray-300 px-1 py-2 text-center">{book._id.toString().replace(/^0+/, '')}</td>
+                            <td className="border border-gray-300 px-1 py-2 text-center">{book._id.toString().replace(/^0+/, "")}</td>
                             <td className="border border-gray-300 px-4 py-2 text-center">
                                 <span
                                     className="font-medium hover:underline cursor-pointer"
