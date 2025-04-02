@@ -1,41 +1,47 @@
-import {useState} from 'react';
-import {IoMenu} from 'react-icons/io5';
-import {Link} from 'react-router-dom';
-import {FaBookOpen} from "react-icons/fa";
-import {BASE_URL} from "../utils/Constants.ts";
+import { useState } from "react";
+import { IoMenu } from "react-icons/io5";
+import { Link } from "react-router-dom";
+import { FaBookOpen } from "react-icons/fa";
+import { BASE_URL } from "../utils/Constants.ts";
+
+const menuItems = [
+    {to: "/books", label: "すべての書籍"},
+    {to: "/popular", label: "人気の書籍"},
+    {to: "/search", label: "書籍の検索"},
+    {to: "/mypage", label: "マイページ"},
+];
 
 const AddBook = () => {
     const [menuOpen, setMenuOpen] = useState(false);
-    const [title, setTitle] = useState('');
-    const toggleMenu = () => setMenuOpen(!menuOpen);
+    const [title, setTitle] = useState("");
+    const toggleMenu = () => setMenuOpen((prev) => !prev);
 
     const submitBook = () => {
         if (!title.trim()) {
-            alert('書籍タイトルを入力してください。');
+            alert("書籍タイトルを入力してください。");
             return;
         }
 
         fetch(`${BASE_URL}/books`, {
-            method: 'POST',
+            method: "POST",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
             },
             body: JSON.stringify({title}),
-            credentials: 'include',
+            credentials: "include",
         })
             .then((response) => {
                 if (!response.ok) {
                     throw new Error(`Failed to add book. Status: ${response.status}`);
                 }
-                alert('書籍が正常に追加されました！');
-                setTitle('');
+                alert("書籍が正常に追加されました！");
+                setTitle("");
             })
             .catch((error) => {
-                console.error('Error:', error);
-                alert('書籍の追加に失敗しました。');
+                console.error("Error:", error);
+                alert("書籍の追加に失敗しました。");
             });
     };
-
 
     return (
         <div className="min-h-screen bg-gray-100">
@@ -51,18 +57,11 @@ const AddBook = () => {
                     {menuOpen && (
                         <div className="absolute right-0 mt-2 w-48 bg-white rounded shadow-lg z-10">
                             <ul className="text-gray-800">
-                                <Link to="/books">
-                                    <li className="hover:bg-gray-100 px-5 py-4 cursor-pointer">すべての書籍</li>
-                                </Link>
-                                <Link to="/popular">
-                                    <li className="hover:bg-gray-100 px-5 py-4 cursor-pointer">人気の書籍</li>
-                                </Link>
-                                <Link to="/search">
-                                    <li className="hover:bg-gray-100 px-5 py-4 cursor-pointer">書籍の検索</li>
-                                </Link>
-                                <Link to="/mypage">
-                                    <li className="hover:bg-gray-100 px-5 py-4 cursor-pointer">マイページ</li>
-                                </Link>
+                                {menuItems.map(({to, label}) => (
+                                    <Link key={to} to={to}>
+                                        <li className="hover:bg-gray-100 px-5 py-4 cursor-pointer">{label}</li>
+                                    </Link>
+                                ))}
                             </ul>
                         </div>
                     )}
