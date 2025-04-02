@@ -1,8 +1,8 @@
-import {useEffect, useState} from 'react';
-import {IoMenu} from "react-icons/io5";
-import {Link} from "react-router-dom";
-import {MdHistory} from "react-icons/md";
-import {BASE_URL} from "../utils/Constants.ts";
+import { useEffect, useState } from "react";
+import { IoMenu } from "react-icons/io5";
+import { Link } from "react-router-dom";
+import { MdHistory } from "react-icons/md";
+import { BASE_URL } from "../utils/Constants.ts";
 
 type BorrowRecord = {
     _id: string;
@@ -11,6 +11,13 @@ type BorrowRecord = {
     borrowed_date: string;
     returned_date: string | null;
 };
+
+const menuItems = [
+    {to: "/books", label: "すべての書籍"},
+    {to: "/popular", label: "人気の書籍"},
+    {to: "/search", label: "書籍の検索"},
+    {to: "/mypage", label: "マイページ"},
+];
 
 const BorrowRecordTable = () => {
     const [menuOpen, setMenuOpen] = useState(false);
@@ -64,18 +71,11 @@ const BorrowRecordTable = () => {
                     {menuOpen && (
                         <div className="absolute right-0 mt-2 w-48 bg-white rounded shadow-lg z-10">
                             <ul className="text-gray-800">
-                                <Link to="/books">
-                                    <li className="hover:bg-gray-100 px-5 py-4 cursor-pointer">すべての書籍</li>
-                                </Link>
-                                <Link to="/popular">
-                                    <li className="hover:bg-gray-100 px-5 py-4 cursor-pointer">人気の書籍</li>
-                                </Link>
-                                <Link to="/search">
-                                    <li className="hover:bg-gray-100 px-5 py-4 cursor-pointer">書籍の検索</li>
-                                </Link>
-                                <Link to="/mypage">
-                                    <li className="hover:bg-gray-100 px-5 py-4 cursor-pointer">マイページ</li>
-                                </Link>
+                                {menuItems.map(({to, label}) => (
+                                    <Link key={to} to={to}>
+                                        <li className="hover:bg-gray-100 px-5 py-4 cursor-pointer">{label}</li>
+                                    </Link>
+                                ))}
                             </ul>
                         </div>
                     )}
@@ -97,8 +97,8 @@ const BorrowRecordTable = () => {
                     {records.map((record) => (
                         <tr key={record._id}>
                             <td className="border border-gray-300 px-2 py-2 text-center">{record._id}</td>
-                            <td className="border border-gray-300 px-4 py-2 text-center">{record.user_id.toString().replace(/^0+/, '')}</td>
-                            <td className="border border-gray-300 px-4 py-2 text-center">{record.book_id.toString().replace(/^0+/, '')}</td>
+                            <td className="border border-gray-300 px-4 py-2 text-center">{record.user_id.toString().replace(/^0+/, "")}</td>
+                            <td className="border border-gray-300 px-4 py-2 text-center">{record.book_id.toString().replace(/^0+/, "")}</td>
                             <td className="border border-gray-300 px-4 py-2 text-center">{formatDate(record.borrowed_date)}</td>
                             <td className="border border-gray-300 px-4 py-2 text-center">
                                 {record.returned_date ? (
